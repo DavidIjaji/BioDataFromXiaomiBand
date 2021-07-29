@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "565242645285",
+    "firebase_url": "https://proyecto-biosolutions-2-default-rtdb.firebaseio.com",
+    "project_id": "proyecto-biosolutions-2",
+    "storage_bucket": "proyecto-biosolutions-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565242645285:android:028bd277f9344f7c4e68cc",
+        "android_client_info": {
+          "package_name": "com.example.flutter_prueba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565242645285-35b8kmtop8eaa9latc5q0hhim20k6a1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_prueba",
+            "certificate_hash": "ec48cf16aedf1de275441de0794488c8436be47a"
+          }
+        },
+        {
+          "client_id": "565242645285-sreusummjsaq14v54s48so34q6r06qtn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyO-hTpEmWXRPTmSixbZ7LKJWJeN3dqOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565242645285-sreusummjsaq14v54s48so34q6r06qtn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
