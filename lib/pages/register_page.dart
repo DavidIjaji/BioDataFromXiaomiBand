@@ -10,13 +10,23 @@ class RegisterLoginPage extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<LoginRegisterController>(
         builder: (_) {
-          return Form(
-            child: Card(
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.white, Colors.blue],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter),
+            ),
+            child: Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 200,
+                  Container(
+                    child: const Text(
+                      'Register Page',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    alignment: Alignment.center,
                   ),
                   TextFormField(
                     controller: controller.emailController,
@@ -50,10 +60,10 @@ class RegisterLoginPage extends StatelessWidget {
                     ),
                   ),
                   /*Container(
-                      alignment: Alignment.center,
-                      child: Text(controller.success
-                          ? 'successfully register' + controller.userEmail
-                          : 'Registro Fallido')),*/
+                        alignment: Alignment.center,
+                        child: Text(controller.success
+                            ? 'successfully register' + controller.userEmail
+                            : 'Registro Fallido')),*/
                 ],
               ),
             ),

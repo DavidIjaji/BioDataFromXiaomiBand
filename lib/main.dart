@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_prueba/routes/my_routes.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,11 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    
+    
+
     return FutureBuilder(
+      
       // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
@@ -125,5 +130,22 @@ class Exito extends StatelessWidget {
       ),
     );
   }
+}
+*/
+/*
+class Autentificado {
+  Future<bool> autentificado() async{
+
+        FirebaseAuth auth = FirebaseAuth.instance;
+        FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          print('User is currently signed out!');
+          return(false)
+        } else {
+          print('User is signed in!');
+          return(true)
+        }
+      });
+    }
 }
 */

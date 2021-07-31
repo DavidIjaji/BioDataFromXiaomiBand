@@ -1,10 +1,12 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
 import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -121,26 +123,50 @@ class graficaBPM extends StatelessWidget {
         //SalesData(now, snapshot.data.toDouble());
         print(SalesData);
         //<SalesData>[].add(now,snapshot.data.toDouble());
-        return SfCartesianChart(
-            tooltipBehavior: TooltipBehavior(
-                enable: true, activationMode: ActivationMode.longPress),
-            primaryXAxis: CategoryAxis(),
-            series: <ChartSeries>[
-              // Initialize line series
-              LineSeries<SalesData, String>(
-                  dataSource: [
-                    // Bind data source
-                    SalesData('01:00', 60),
-                    SalesData('01:05', 62),
-                    SalesData('01:10', 60),
-                    SalesData('01:15', 70),
-                    SalesData('01:16', snapshot.data.toDouble())
-                  ],
-                  xValueMapper: (SalesData sales, _) => sales.year,
-                  yValueMapper: (SalesData sales, _) => sales.sales,
-                  // Render the data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
-            ]);
+        return Card(
+          shadowColor: Colors.red,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Container(
+            //padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.blue, Colors.red],
+                          begin: Alignment.topRight,
+                          end: Alignment.topLeft)),
+                  child: SfCartesianChart(
+                      tooltipBehavior: TooltipBehavior(
+                          enable: true,
+                          activationMode: ActivationMode.longPress),
+                      primaryXAxis: CategoryAxis(),
+                      series: <ChartSeries>[
+                        // Initialize line series
+                        LineSeries<SalesData, String>(
+                            dataSource: [
+                              // Bind data source
+                              SalesData('01:00', 60),
+                              SalesData('01:05', 62),
+                              SalesData('01:10', 60),
+                              SalesData('01:15', 70),
+                              SalesData('01:16', snapshot.data.toDouble())
+                            ],
+                            xValueMapper: (SalesData sales, _) => sales.year,
+                            yValueMapper: (SalesData sales, _) => sales.sales,
+                            // Render the data label
+                            dataLabelSettings:
+                                DataLabelSettings(isVisible: true))
+                      ]),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
@@ -150,4 +176,25 @@ class SalesData {
   SalesData(this.year, this.sales);
   final String year;
   final double sales;
+}
+
+class DataFirestore extends StatelessWidget {
+  //const DataFirestore({ Key? key }) : super(key: key);
+
+  DataFirestore(DocumentSnapshot document) {}
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("pacientes").snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+          }
+          return const Text("Cargando...");
+        },
+      ),
+    );
+  }
 }
