@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">565242645285-sreusummjsaq14v54s48so34q6r06qtn.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://proyecto-biosolutions-2-default-rtdb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">565242645285</string>
+    <string name="google_api_key" translatable="false">AIzaSyAyO-hTpEmWXRPTmSixbZ7LKJWJeN3dqOE</string>
+    <string name="google_app_id" translatable="false">1:565242645285:android:028bd277f9344f7c4e68cc</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAyO-hTpEmWXRPTmSixbZ7LKJWJeN3dqOE</string>
+    <string name="google_storage_bucket" translatable="false">proyecto-biosolutions-2.appspot.com</string>
+    <string name="project_id" translatable="false">proyecto-biosolutions-2</string>
+</resources>
