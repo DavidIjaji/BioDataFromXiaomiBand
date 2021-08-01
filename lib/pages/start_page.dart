@@ -1,6 +1,9 @@
+import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_prueba/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -22,62 +25,97 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Shader? linearGradient = LinearGradient(
+      colors: <Color>[Colors.white, Colors.blue],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 200, 70));
+    final Shader? linearGradient1 = LinearGradient(
+      colors: <Color>[Colors.green, Colors.white],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
     return Scaffold(
-        /*
-        appBar: AppBar(
-          backgroundColor: Color(003638),
-          title: Text("Bienvenido"),
-          actions: <Widget>[
-            Builder(builder: (BuildContext context) {
-              return TextButton(
-                  onPressed: () async {
-                    controller.signOut();
-                  },
-                  child: Text('Sing Out'));
-            })
-          ],
-        ),*/
-        backgroundColor: Colors.blue,
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-              height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(80),
-                  bottomLeft: Radius.circular(80),
-                ),
-                color: Colors.blue[900],
-              ),
-              padding: const EdgeInsets.only(top: 10.0),
-              alignment: Alignment.center,
-              child: Text("BioSolutions",
-                  style: TextStyle(fontSize: 30, color: Colors.white))),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-              height: 336,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              alignment: Alignment.center,
-              child: Column(children: [
-                Row(
-                  children: [
-                    Text(
-                      "Frecuencia cardiaca",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    Icon(Icons.favorite, color: Colors.pink),
-                  ],
-                ),
-                graficaBPM(data: data),
-              ])),
-        ]));
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            controller.signOut();
+          },
+          child: Icon(Icons.exit_to_app),
+          backgroundColor: Colors.red,
+        ),
+        body: Container(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Container(
+                height: MediaQuery.of(context).copyWith().size.height * 0.2,
+                color: Colors.black,
+                padding: const EdgeInsets.only(top: 20.0),
+                alignment: Alignment.center,
+                child: Text("BioSolutions",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()..shader = linearGradient))),
+            Container(
+                //este container tendra las tarjetas de los datos a visualizar
+                height: MediaQuery.of(context).copyWith().size.height * 0.8,
+                width: MediaQuery.of(context).copyWith().size.width,
+                //padding: const EdgeInsets.all(20),
+                //height: 500,
+                //width: 300,
+                /*decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Colors.black, Colors.blue, Colors.white],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),*/
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      //aqui se pondran las cartas
+                      Card(
+                        elevation: 10,
+                        shadowColor: Colors.green,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 200,
+                                  child: Text("Frecuencia cardiaca",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          //color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          foreground: Paint()
+                                            ..shader = linearGradient1)),
+                                ),
+                                Icon(Icons.favorite,
+                                    color: Colors.green, size: 40),
+                                Container(
+                                  width: 100,
+                                  child: Text(90.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 60,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green)),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              child: graficaBPM(data: data),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //la otra variable capturada
+                    ],
+                  ),
+                ))
+          ]),
+        ));
   }
 }
 
@@ -89,22 +127,46 @@ class graficaBPM extends StatelessWidget {
 
   final DatosBanda data;
   //List<_ChartData> chartData = <_ChartData>[];
-
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now().toString();
+    num _getRandomInt(int min, int max) {
+      final Random random = Random();
+      return min + random.nextInt(max - min);
+    }
+
+    ChartSeriesController? _chartSeriesController;
+    void _updateDataSource(Timer timer) {
+      List<_ChartData> chartData = <_ChartData>[];
+
+      // Count of type integer which binds as x value for the series
+      String count = DateTime.now().toString();
+      chartData.add(_ChartData(count, _getRandomInt(10, 100).toInt()));
+      if (chartData.length == 20) {
+        // Removes the last index data of data source.
+        chartData.removeAt(0);
+        // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
+        _chartSeriesController?.updateDataSource(
+            addedDataIndexes: <int>[chartData.length - 1],
+            removedDataIndexes: <int>[0]);
+      }
+      //count = count.second + timer;
+    }
+
+    Timer? timer;
+    timer =
+        Timer.periodic(const Duration(milliseconds: 1000), _updateDataSource);
+
+    // Data source which binds to the series
+
+    List<_ChartData> chartData = <_ChartData>[
+      _ChartData(DateTime.now().toString(), 60)
+    ];
 
     return StreamBuilder(
       stream: data
           .datoBanda, //voy a la clase y la función dentro que entrega el valor del stream
       initialData: 0,
       builder: (_, AsyncSnapshot<dynamic> snapshot) {
-        print(snapshot.data);
-        // ignore: non_constant_identifier_names
-        //<SalesData>[].add(snapshot.data.toDouble());
-        //SalesData(now, snapshot.data.toDouble());
-        print(SalesData);
-        //<SalesData>[].add(now,snapshot.data.toDouble());
         return Card(
           shadowColor: Colors.red,
           clipBehavior: Clip.antiAlias,
@@ -116,13 +178,29 @@ class graficaBPM extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 100,
+                  height: 120,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                          colors: [Colors.blue, Colors.red],
+                          colors: [Colors.green, Colors.white],
                           begin: Alignment.topRight,
                           end: Alignment.topLeft)),
                   child: SfCartesianChart(
+                      /*
+                    series: <LineSeries<_ChartData, String>>[
+                      LineSeries<_ChartData, String>(
+                        onRendererCreated: (ChartSeriesController controller) {
+                          // Assigning the controller to the _chartSeriesController.
+                          _chartSeriesController = controller;
+                        },
+                        // Binding the chartData to the dataSource of the line series.
+                        dataSource: chartData,
+                        xValueMapper: (_ChartData data, _) => data.hora,
+                        yValueMapper: (_ChartData data, _) => data.bpm,
+                      )
+                    ],*/
+                      ),
+
+                  /*SfCartesianChart(
                       tooltipBehavior: TooltipBehavior(
                           enable: true,
                           activationMode: ActivationMode.longPress),
@@ -143,7 +221,7 @@ class graficaBPM extends StatelessWidget {
                             // Render the data label
                             dataLabelSettings:
                                 DataLabelSettings(isVisible: true))
-                      ]),
+                      ]),*/
                 ),
               ],
             ),
@@ -154,6 +232,12 @@ class graficaBPM extends StatelessWidget {
   }
 }
 
+class _ChartData {
+  _ChartData(this.hora, this.bpm);
+  final String hora;
+  final int bpm;
+}
+/*
 class SalesData {
   SalesData(this.year, this.sales);
   final String year;
@@ -167,6 +251,31 @@ class DataFirestore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<_ChartData> chartData = <_ChartData>[];
+    Timer? timer;
+    ChartSeriesController? _chartSeriesController;
+    // Count of type integer which binds as x value for the series
+    int count = 19;
+    List<_ChartData> chartData = <_ChartData>[
+      _ChartData(DateTime.now(), 0),
+    ];
+    timer = Timer.periodic(const Duration(milliseconds: 1000), _updateDataSource);
+    //var now = DateTime.now().toString();
+
+    void _updateDataSource(Timer timer) {
+      chartData.add(_ChartData(count, _getRandomInt(10, 100)));
+      if (chartData.length == 20) {
+        // Removes the last index data of data source.
+        chartData.removeAt(0);
+        // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
+        _chartSeriesController?.updateDataSource(addedDataIndexes: <int>[chartData.length – 1],              removedDataIndexes: <int>[0]);
+      }
+      count = count + 1;
+    }
+    num _getRandomInt(num min, num max) {
+   final Random random = Random();
+   return min + random.nextInt(max - min);
+}
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("pacientes").snapshots(),
@@ -180,3 +289,4 @@ class DataFirestore extends StatelessWidget {
     );
   }
 }
+*/
