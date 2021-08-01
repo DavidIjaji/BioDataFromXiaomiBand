@@ -23,6 +23,7 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        /*
         appBar: AppBar(
           backgroundColor: Color(003638),
           title: Text("Bienvenido"),
@@ -35,7 +36,7 @@ class _StartPageState extends State<StartPage> {
                   child: Text('Sing Out'));
             })
           ],
-        ),
+        ),*/
         backgroundColor: Colors.blue,
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
@@ -75,25 +76,6 @@ class _StartPageState extends State<StartPage> {
                   ],
                 ),
                 graficaBPM(data: data),
-                /*
-                SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries>[
-                      // Initialize line series
-                      LineSeries<SalesData, String>(
-                          dataSource: [
-                            // Bind data source
-                            SalesData('01:00', 60),
-                            SalesData('01:05', 62),
-                            SalesData('01:10', 60),
-                            SalesData('01:15', 70),
-                            SalesData('01:16', cambia.toDouble())
-                          ],
-                          xValueMapper: (SalesData sales, _) => sales.year,
-                          yValueMapper: (SalesData sales, _) => sales.sales,
-                          // Render the data label
-                          dataLabelSettings: DataLabelSettings(isVisible: true))
-                    ]),*/
               ])),
         ]));
   }
