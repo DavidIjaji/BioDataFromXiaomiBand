@@ -126,47 +126,40 @@ class graficaBPM extends StatelessWidget {
   }) : super(key: key);
 
   final DatosBanda data;
-  //List<_ChartData> chartData = <_ChartData>[];
+
   @override
   Widget build(BuildContext context) {
-    num _getRandomInt(int min, int max) {
-      final Random random = Random();
-      return min + random.nextInt(max - min);
-    }
-
-    ChartSeriesController? _chartSeriesController;
-    void _updateDataSource(Timer timer) {
-      List<_ChartData> chartData = <_ChartData>[];
-
-      // Count of type integer which binds as x value for the series
-      String count = DateTime.now().toString();
-      chartData.add(_ChartData(count, _getRandomInt(10, 100).toInt()));
-      if (chartData.length == 20) {
-        // Removes the last index data of data source.
-        chartData.removeAt(0);
-        // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
-        _chartSeriesController?.updateDataSource(
-            addedDataIndexes: <int>[chartData.length - 1],
-            removedDataIndexes: <int>[0]);
-      }
-      //count = count.second + timer;
-    }
-
-    Timer? timer;
-    timer =
-        Timer.periodic(const Duration(milliseconds: 1000), _updateDataSource);
-
-    // Data source which binds to the series
-
     List<_ChartData> chartData = <_ChartData>[
-      _ChartData(DateTime.now().toString(), 60)
+      _ChartData("00:00", 0),
     ];
 
+    ChartSeriesController? _chartSeriesController;
+    int contador = 0;
     return StreamBuilder(
       stream: data
           .datoBanda, //voy a la clase y la función dentro que entrega el valor del stream
       initialData: 0,
       builder: (_, AsyncSnapshot<dynamic> snapshot) {
+        int entregarBPM() {
+          return snapshot.data;
+        }
+
+        void _updateDataSource() {
+          contador = contador + 1;
+          chartData
+              .add(_ChartData(contador.toString(), snapshot.data.toDouble()));
+          if (chartData.length == 20) {
+            // Removes the last index data of data source.
+            chartData.removeAt(0);
+            // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
+            _chartSeriesController?.updateDataSource(
+                addedDataIndexes: <int>[chartData.length - 1],
+                removedDataIndexes: <int>[0]);
+          }
+        }
+
+        _updateDataSource();
+
         return Card(
           shadowColor: Colors.red,
           clipBehavior: Clip.antiAlias,
@@ -185,43 +178,25 @@ class graficaBPM extends StatelessWidget {
                           begin: Alignment.topRight,
                           end: Alignment.topLeft)),
                   child: SfCartesianChart(
-                      /*
-                    series: <LineSeries<_ChartData, String>>[
-                      LineSeries<_ChartData, String>(
-                        onRendererCreated: (ChartSeriesController controller) {
-                          // Assigning the controller to the _chartSeriesController.
-                          _chartSeriesController = controller;
-                        },
-                        // Binding the chartData to the dataSource of the line series.
-                        dataSource: chartData,
-                        xValueMapper: (_ChartData data, _) => data.hora,
-                        yValueMapper: (_ChartData data, _) => data.bpm,
-                      )
-                    ],*/
-                      ),
-
-                  /*SfCartesianChart(
                       tooltipBehavior: TooltipBehavior(
                           enable: true,
                           activationMode: ActivationMode.longPress),
                       primaryXAxis: CategoryAxis(),
                       series: <ChartSeries>[
                         // Initialize line series
-                        LineSeries<SalesData, String>(
-                            dataSource: [
-                              // Bind data source
-                              SalesData('01:00', 60),
-                              SalesData('01:05', 62),
-                              SalesData('01:10', 60),
-                              SalesData('01:15', 70),
-                              SalesData('01:16', snapshot.data.toDouble())
-                            ],
-                            xValueMapper: (SalesData sales, _) => sales.year,
-                            yValueMapper: (SalesData sales, _) => sales.sales,
+                        LineSeries<_ChartData, String>(
+                            onRendererCreated:
+                                (ChartSeriesController controller) {
+                              // Assigning the controller to the _chartSeriesController.
+                              _chartSeriesController = controller;
+                            },
+                            dataSource: chartData,
+                            xValueMapper: (_ChartData sales, _) => sales.hora,
+                            yValueMapper: (_ChartData sales, _) => sales.bpm,
                             // Render the data label
                             dataLabelSettings:
                                 DataLabelSettings(isVisible: true))
-                      ]),*/
+                      ]),
                 ),
               ],
             ),
@@ -235,58 +210,5 @@ class graficaBPM extends StatelessWidget {
 class _ChartData {
   _ChartData(this.hora, this.bpm);
   final String hora;
-  final int bpm;
+  final double bpm;
 }
-/*
-class SalesData {
-  SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
-}
-
-class DataFirestore extends StatelessWidget {
-  //const DataFirestore({ Key? key }) : super(key: key);
-
-  DataFirestore(DocumentSnapshot document) {}
-
-  @override
-  Widget build(BuildContext context) {
-    final List<_ChartData> chartData = <_ChartData>[];
-    Timer? timer;
-    ChartSeriesController? _chartSeriesController;
-    // Count of type integer which binds as x value for the series
-    int count = 19;
-    List<_ChartData> chartData = <_ChartData>[
-      _ChartData(DateTime.now(), 0),
-    ];
-    timer = Timer.periodic(const Duration(milliseconds: 1000), _updateDataSource);
-    //var now = DateTime.now().toString();
-
-    void _updateDataSource(Timer timer) {
-      chartData.add(_ChartData(count, _getRandomInt(10, 100)));
-      if (chartData.length == 20) {
-        // Removes the last index data of data source.
-        chartData.removeAt(0);
-        // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
-        _chartSeriesController?.updateDataSource(addedDataIndexes: <int>[chartData.length – 1],              removedDataIndexes: <int>[0]);
-      }
-      count = count + 1;
-    }
-    num _getRandomInt(num min, num max) {
-   final Random random = Random();
-   return min + random.nextInt(max - min);
-}
-    return Scaffold(
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("pacientes").snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            print(snapshot.data);
-          }
-          return const Text("Cargando...");
-        },
-      ),
-    );
-  }
-}
-*/
