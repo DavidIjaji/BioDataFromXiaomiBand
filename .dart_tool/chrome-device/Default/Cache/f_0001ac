@@ -1,0 +1,637 @@
+define(['dart_sdk', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/widgets/icon_data.dart', 'packages/flutter/src/painting/borders.dart'], (function load__packages__flutter_signin_button__button_builder_dart(dart_sdk, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__widgets__icon_data$46dart, packages__flutter__src__painting__borders$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const material_button = packages__flutter__src__material__icon_button$46dart.src__material__material_button;
+  const button_theme = packages__flutter__src__material__icon_button$46dart.src__material__button_theme;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const icon_data = packages__flutter__src__widgets__icon_data$46dart.src__widgets__icon_data;
+  const borders = packages__flutter__src__painting__borders$46dart.src__painting__borders;
+  var button_builder = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    VoidToNvoid: () => (T.VoidToNvoid = dart.constFn(dart.nullable(T.VoidTovoid())))(),
+    JSArrayOfWidget: () => (T.JSArrayOfWidget = dart.constFn(_interceptors.JSArray$(framework.Widget)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294967295.0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1308622847
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "key",
+        [_Location_column]: 7,
+        [_Location_line]: 80,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "minWidth",
+        [_Location_column]: 7,
+        [_Location_line]: 81,
+        [_Location_file]: null
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 7,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "elevation",
+        [_Location_column]: 7,
+        [_Location_line]: 83,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 84,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 7,
+        [_Location_line]: 85,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 7,
+        [_Location_line]: 86,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "splashColor",
+        [_Location_column]: 7,
+        [_Location_line]: 87,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "highlightColor",
+        [_Location_column]: 7,
+        [_Location_line]: 88,
+        [_Location_file]: null
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 89,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "shape",
+        [_Location_column]: 7,
+        [_Location_line]: 90,
+        [_Location_file]: null
+      });
+    },
+    get C3() {
+      return C[3] = dart.constList([C[4] || CT.C4, C[5] || CT.C5, C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8, C[9] || CT.C9, C[10] || CT.C10, C[11] || CT.C11, C[12] || CT.C12, C[13] || CT.C13, C[14] || CT.C14], widget_inspector._Location);
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[3] || CT.C3,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 79,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 9,
+        [_Location_line]: 98,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 9,
+        [_Location_line]: 99,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 100,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.constList([C[17] || CT.C17, C[18] || CT.C18, C[19] || CT.C19], widget_inspector._Location);
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[16] || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 97,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 15,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 116,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.constList([C[22] || CT.C22, C[23] || CT.C23], widget_inspector._Location);
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[21] || CT.C21,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 111,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 15,
+        [_Location_line]: 119,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 15,
+        [_Location_line]: 120,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.constList([C[26] || CT.C26, C[27] || CT.C27], widget_inspector._Location);
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[25] || CT.C25,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 118,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "crossAxisAlignment",
+        [_Location_column]: 11,
+        [_Location_line]: 109,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 110,
+        [_Location_file]: null
+      });
+    },
+    get C29() {
+      return C[29] = dart.constList([C[30] || CT.C30, C[31] || CT.C31], widget_inspector._Location);
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[29] || CT.C29,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 108,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 108,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.constList([C[34] || CT.C34], widget_inspector._Location);
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[33] || CT.C33,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 107,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "constraints",
+        [_Location_column]: 7,
+        [_Location_line]: 104,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 107,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.constList([C[37] || CT.C37, C[38] || CT.C38], widget_inspector._Location);
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[36] || CT.C36,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 103,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 7,
+        [_Location_line]: 138,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 7,
+        [_Location_line]: 139,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 7,
+        [_Location_line]: 140,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.constList([C[41] || CT.C41, C[42] || CT.C42, C[43] || CT.C43], widget_inspector._Location);
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[40] || CT.C40,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 137,
+        [_Location_file]: "file:///C:/Users/david/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_signin_button-2.0.0/lib/button_builder.dart"
+      });
+    }
+  }, false);
+  var C = Array(44).fill(void 0);
+  var I = ["package:flutter_signin_button/button_builder.dart"];
+  var icon$ = dart.privateName(button_builder, "SignInButtonBuilder.icon");
+  var image$ = dart.privateName(button_builder, "SignInButtonBuilder.image");
+  var mini$ = dart.privateName(button_builder, "SignInButtonBuilder.mini");
+  var text$ = dart.privateName(button_builder, "SignInButtonBuilder.text");
+  var fontSize$ = dart.privateName(button_builder, "SignInButtonBuilder.fontSize");
+  var textColor$ = dart.privateName(button_builder, "SignInButtonBuilder.textColor");
+  var iconColor$ = dart.privateName(button_builder, "SignInButtonBuilder.iconColor");
+  var backgroundColor$ = dart.privateName(button_builder, "SignInButtonBuilder.backgroundColor");
+  var splashColor$ = dart.privateName(button_builder, "SignInButtonBuilder.splashColor");
+  var highlightColor$ = dart.privateName(button_builder, "SignInButtonBuilder.highlightColor");
+  var onPressed$ = dart.privateName(button_builder, "SignInButtonBuilder.onPressed");
+  var padding$ = dart.privateName(button_builder, "SignInButtonBuilder.padding");
+  var innerPadding$ = dart.privateName(button_builder, "SignInButtonBuilder.innerPadding");
+  var shape$ = dart.privateName(button_builder, "SignInButtonBuilder.shape");
+  var elevation$ = dart.privateName(button_builder, "SignInButtonBuilder.elevation");
+  var height$ = dart.privateName(button_builder, "SignInButtonBuilder.height");
+  var width$ = dart.privateName(button_builder, "SignInButtonBuilder.width");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var _getButtonChild = dart.privateName(button_builder, "_getButtonChild");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var _getIconOrImage = dart.privateName(button_builder, "_getIconOrImage");
+  button_builder.SignInButtonBuilder = class SignInButtonBuilder extends framework.StatelessWidget {
+    get icon() {
+      return this[icon$];
+    }
+    set icon(value) {
+      super.icon = value;
+    }
+    get image() {
+      return this[image$];
+    }
+    set image(value) {
+      super.image = value;
+    }
+    get mini() {
+      return this[mini$];
+    }
+    set mini(value) {
+      super.mini = value;
+    }
+    get text() {
+      return this[text$];
+    }
+    set text(value) {
+      super.text = value;
+    }
+    get fontSize() {
+      return this[fontSize$];
+    }
+    set fontSize(value) {
+      super.fontSize = value;
+    }
+    get textColor() {
+      return this[textColor$];
+    }
+    set textColor(value) {
+      super.textColor = value;
+    }
+    get iconColor() {
+      return this[iconColor$];
+    }
+    set iconColor(value) {
+      super.iconColor = value;
+    }
+    get backgroundColor() {
+      return this[backgroundColor$];
+    }
+    set backgroundColor(value) {
+      super.backgroundColor = value;
+    }
+    get splashColor() {
+      return this[splashColor$];
+    }
+    set splashColor(value) {
+      super.splashColor = value;
+    }
+    get highlightColor() {
+      return this[highlightColor$];
+    }
+    set highlightColor(value) {
+      super.highlightColor = value;
+    }
+    get onPressed() {
+      return this[onPressed$];
+    }
+    set onPressed(value) {
+      super.onPressed = value;
+    }
+    get padding() {
+      return this[padding$];
+    }
+    set padding(value) {
+      super.padding = value;
+    }
+    get innerPadding() {
+      return this[innerPadding$];
+    }
+    set innerPadding(value) {
+      super.innerPadding = value;
+    }
+    get shape() {
+      return this[shape$];
+    }
+    set shape(value) {
+      super.shape = value;
+    }
+    get elevation() {
+      return this[elevation$];
+    }
+    set elevation(value) {
+      super.elevation = value;
+    }
+    get height() {
+      return this[height$];
+    }
+    set height(value) {
+      super.height = value;
+    }
+    get width() {
+      return this[width$];
+    }
+    set width(value) {
+      super.width = value;
+    }
+    build(context) {
+      let t0, t0$, t0$0;
+      return new material_button.MaterialButton.new({key: this.key, minWidth: this.mini ? (t0 = this.width, t0 == null ? 35.0 : t0) : null, height: this.height, elevation: this.elevation, padding: (t0$ = this.padding, t0$ == null ? new edge_insets.EdgeInsets.all(0.0) : t0$), color: this.backgroundColor, onPressed: T.VoidToNvoid().as(this.onPressed), splashColor: this.splashColor, highlightColor: this.highlightColor, child: this[_getButtonChild](context), shape: (t0$0 = this.shape, t0$0 == null ? button_theme.ButtonTheme.of(context).shape : t0$0), $creationLocationd_0dea112b090073317d4: C[2] || CT.C2});
+    }
+    [_getButtonChild](context) {
+      let t0, t0$, t0$0, t0$1;
+      if (this.mini) {
+        return new container.Container.new({width: (t0 = this.height, t0 == null ? 35.0 : t0), height: (t0$ = this.width, t0$ == null ? 35.0 : t0$), child: this[_getIconOrImage](), $creationLocationd_0dea112b090073317d4: C[15] || CT.C15});
+      }
+      return new container.Container.new({constraints: new box.BoxConstraints.new({maxWidth: (t0$0 = this.width, t0$0 == null ? 220.0 : t0$0)}), child: new basic.Center.new({child: new basic.Row.new({crossAxisAlignment: flex.CrossAxisAlignment.center, children: T.JSArrayOfWidget().of([new basic.Padding.new({padding: (t0$1 = this.innerPadding, t0$1 == null ? new edge_insets.EdgeInsets.symmetric({horizontal: 13.0}) : t0$1), child: this[_getIconOrImage](), $creationLocationd_0dea112b090073317d4: C[20] || CT.C20}), new text.Text.new(this.text, {style: new text_style.TextStyle.new({color: this.textColor, fontSize: this.fontSize, backgroundColor: new ui.Color.fromRGBO(0, 0, 0, 0.0)}), $creationLocationd_0dea112b090073317d4: C[24] || CT.C24})]), $creationLocationd_0dea112b090073317d4: C[28] || CT.C28}), $creationLocationd_0dea112b090073317d4: C[32] || CT.C32}), $creationLocationd_0dea112b090073317d4: C[35] || CT.C35});
+    }
+    [_getIconOrImage]() {
+      if (this.image != null) {
+        return this.image;
+      }
+      return new icon.Icon.new(this.icon, {size: 20.0, color: this.iconColor, $creationLocationd_0dea112b090073317d4: C[39] || CT.C39});
+    }
+  };
+  (button_builder.SignInButtonBuilder.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let backgroundColor = opts && 'backgroundColor' in opts ? opts.backgroundColor : null;
+    let onPressed = opts && 'onPressed' in opts ? opts.onPressed : null;
+    let text = opts && 'text' in opts ? opts.text : null;
+    let icon = opts && 'icon' in opts ? opts.icon : null;
+    let image = opts && 'image' in opts ? opts.image : null;
+    let fontSize = opts && 'fontSize' in opts ? opts.fontSize : 14;
+    let textColor = opts && 'textColor' in opts ? opts.textColor : C[0] || CT.C0;
+    let iconColor = opts && 'iconColor' in opts ? opts.iconColor : C[0] || CT.C0;
+    let splashColor = opts && 'splashColor' in opts ? opts.splashColor : C[1] || CT.C1;
+    let highlightColor = opts && 'highlightColor' in opts ? opts.highlightColor : C[1] || CT.C1;
+    let padding = opts && 'padding' in opts ? opts.padding : null;
+    let innerPadding = opts && 'innerPadding' in opts ? opts.innerPadding : null;
+    let mini = opts && 'mini' in opts ? opts.mini : false;
+    let elevation = opts && 'elevation' in opts ? opts.elevation : 2;
+    let shape = opts && 'shape' in opts ? opts.shape : null;
+    let height = opts && 'height' in opts ? opts.height : null;
+    let width = opts && 'width' in opts ? opts.width : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[backgroundColor$] = backgroundColor;
+    this[onPressed$] = onPressed;
+    this[text$] = text;
+    this[icon$] = icon;
+    this[image$] = image;
+    this[fontSize$] = fontSize;
+    this[textColor$] = textColor;
+    this[iconColor$] = iconColor;
+    this[splashColor$] = splashColor;
+    this[highlightColor$] = highlightColor;
+    this[padding$] = padding;
+    this[innerPadding$] = innerPadding;
+    this[mini$] = mini;
+    this[elevation$] = elevation;
+    this[shape$] = shape;
+    this[height$] = height;
+    this[width$] = width;
+    button_builder.SignInButtonBuilder.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = button_builder.SignInButtonBuilder.prototype;
+  dart.addTypeTests(button_builder.SignInButtonBuilder);
+  dart.addTypeCaches(button_builder.SignInButtonBuilder);
+  dart.setMethodSignature(button_builder.SignInButtonBuilder, () => ({
+    __proto__: dart.getMethods(button_builder.SignInButtonBuilder.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext]),
+    [_getButtonChild]: dart.fnType(container.Container, [framework.BuildContext]),
+    [_getIconOrImage]: dart.fnType(dart.nullable(framework.Widget), [])
+  }));
+  dart.setLibraryUri(button_builder.SignInButtonBuilder, I[0]);
+  dart.setFieldSignature(button_builder.SignInButtonBuilder, () => ({
+    __proto__: dart.getFields(button_builder.SignInButtonBuilder.__proto__),
+    icon: dart.finalFieldType(dart.nullable(icon_data.IconData)),
+    image: dart.finalFieldType(dart.nullable(framework.Widget)),
+    mini: dart.finalFieldType(core.bool),
+    text: dart.finalFieldType(core.String),
+    fontSize: dart.finalFieldType(core.double),
+    textColor: dart.finalFieldType(ui.Color),
+    iconColor: dart.finalFieldType(ui.Color),
+    backgroundColor: dart.finalFieldType(ui.Color),
+    splashColor: dart.finalFieldType(ui.Color),
+    highlightColor: dart.finalFieldType(ui.Color),
+    onPressed: dart.finalFieldType(core.Function),
+    padding: dart.finalFieldType(dart.nullable(edge_insets.EdgeInsets)),
+    innerPadding: dart.finalFieldType(dart.nullable(edge_insets.EdgeInsets)),
+    shape: dart.finalFieldType(dart.nullable(borders.ShapeBorder)),
+    elevation: dart.finalFieldType(core.double),
+    height: dart.finalFieldType(dart.nullable(core.double)),
+    width: dart.finalFieldType(dart.nullable(core.double))
+  }));
+  dart.trackLibraries("packages/flutter_signin_button/button_builder.dart", {
+    "package:flutter_signin_button/button_builder.dart": button_builder
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["button_builder.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAQkB;;;;;;IAMF;;;;;;IAGH;;;;;;IAGE;;;;;;IAGA;;;;;;IAID;;;;;;IACR;;;;;;IACA;;;;;;IACA;;;;;;IACA;;;;;;IAGW;;;;;;IAGG;;;;;;IAAS;;;;;;IAKR;;;;;;IAGN;;;;;;IAGC;;;;;;IAGA;;;;;;UA0BY;;AACxB,YAAO,8CACA,oBACK,aAAa,iBAAN,aAAS,aAAO,cACzB,wBACG,0BACM,oBAAR,cAAsB,+BAAI,oBAC5B,iCACc,mBAAV,8BACE,kCACG,4BACT,sBAAgB,OAAO,WACjB,mBAAN,eAAqB,AAAY,4BAAT,OAAO;IAE1C;sBAGuC;;AACrC,UAAI;AACF,cAAO,sCACS,kBAAP,aAAU,qBACH,kBAAN,cAAS,oBACV;;AAGX,YAAO,2CACQ,uCACK,mBAAN,eAAS,wBAEd,6BACE,uCACkC,0CACrB,wBAChB,iCACwB,0BAAb,eACM,kDACG,uBAEX,oFAET,kBACE,mBACO,qCACE,0BACG,gCACa,sBAAS,GAAG,GAAG,GAAG;IAOvD;;AAIE,UAAI;AACF,cAAO;;AAET,YAAO,mBACL,kBACM,aACM;IAEhB;;;QAtFO;QACS;QACA;QACA;QACT;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;QACA;;IAhBS;IACA;IACA;IACT;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;AAlBP;;EAmBE","file":"../../../../../../../../../packages/flutter_signin_button/button_builder.dart.lib.js"}');
+  // Exports:
+  return {
+    button_builder: button_builder
+  };
+}));
+
+//# sourceMappingURL=button_builder.dart.lib.js.map

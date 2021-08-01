@@ -12,62 +12,64 @@ class LoginPage extends StatelessWidget {
         body: GetBuilder<LoginController>(
       init: LoginController(),
       builder: (_) {
-        return SingleChildScrollView(
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 100,
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.yellow, Colors.blue],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: const Text(
+                    'Login Page',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    child: const Text(
-                      'Login Page',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    alignment: Alignment.center,
+                  alignment: Alignment.center,
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                TextFormField(
+                  controller: controller.emailController,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Email cannot be blank' : null,
+                ),
+                TextFormField(
+                  controller: controller.passwordController,
+                  decoration: const InputDecoration(labelText: 'Contraseña'),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Contraseña cannot be blank' : null,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  alignment: Alignment.center,
+                  child: SignInButton(
+                    Buttons.Email,
+                    text: "Sign In",
+                    onPressed: () async {
+                      _.signInWithEmailAndPassword();
+                    },
                   ),
-                  SizedBox(
-                    height: 50,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  alignment: Alignment.center,
+                  child: SignInButton(
+                    Buttons.GoogleDark,
+                    text: "Google",
+                    onPressed: () async {
+                      _.signInWithGoogle();
+                    },
                   ),
-                  TextFormField(
-                    controller: controller.emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Email cannot be blank' : null,
-                  ),
-                  TextFormField(
-                    controller: controller.passwordController,
-                    decoration: const InputDecoration(labelText: 'Contraseña'),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Contraseña cannot be blank' : null,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    alignment: Alignment.center,
-                    child: SignInButton(
-                      Buttons.Email,
-                      text: "Sign In",
-                      onPressed: () async {
-                        _.signInWithEmailAndPassword();
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    alignment: Alignment.center,
-                    child: SignInButton(
-                      Buttons.GoogleDark,
-                      text: "Google",
-                      onPressed: () async {
-                        _.signInWithGoogle();
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

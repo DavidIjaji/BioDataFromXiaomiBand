@@ -1,10 +1,15 @@
+import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_prueba/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
 import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -20,80 +25,97 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Shader? linearGradient = LinearGradient(
+      colors: <Color>[Colors.white, Colors.blue],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 200, 70));
+    final Shader? linearGradient1 = LinearGradient(
+      colors: <Color>[Colors.green, Colors.white],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(003638),
-          title: Text("Bienvenido"),
-          actions: <Widget>[
-            Builder(builder: (BuildContext context) {
-              return TextButton(
-                  onPressed: () async {
-                    controller.signOut();
-                  },
-                  child: Text('Sing Out'));
-            })
-          ],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            controller.signOut();
+          },
+          child: Icon(Icons.exit_to_app),
+          backgroundColor: Colors.red,
         ),
-        backgroundColor: Colors.blue,
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-              height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(80),
-                  bottomLeft: Radius.circular(80),
-                ),
-                color: Colors.blue[900],
-              ),
-              padding: const EdgeInsets.only(top: 10.0),
-              alignment: Alignment.center,
-              child: Text("BioSolutions",
-                  style: TextStyle(fontSize: 30, color: Colors.white))),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-              height: 336,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              alignment: Alignment.center,
-              child: Column(children: [
-                Row(
-                  children: [
-                    Text(
-                      "Frecuencia cardiaca",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    Icon(Icons.favorite, color: Colors.pink),
-                  ],
-                ),
-                graficaBPM(data: data),
-                /*
-                SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries>[
-                      // Initialize line series
-                      LineSeries<SalesData, String>(
-                          dataSource: [
-                            // Bind data source
-                            SalesData('01:00', 60),
-                            SalesData('01:05', 62),
-                            SalesData('01:10', 60),
-                            SalesData('01:15', 70),
-                            SalesData('01:16', cambia.toDouble())
+        body: Container(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Container(
+                height: MediaQuery.of(context).copyWith().size.height * 0.2,
+                color: Colors.black,
+                padding: const EdgeInsets.only(top: 20.0),
+                alignment: Alignment.center,
+                child: Text("BioSolutions",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()..shader = linearGradient))),
+            Container(
+                //este container tendra las tarjetas de los datos a visualizar
+                height: MediaQuery.of(context).copyWith().size.height * 0.8,
+                width: MediaQuery.of(context).copyWith().size.width,
+                //padding: const EdgeInsets.all(20),
+                //height: 500,
+                //width: 300,
+                /*decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Colors.black, Colors.blue, Colors.white],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),*/
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      //aqui se pondran las cartas
+                      Card(
+                        elevation: 10,
+                        shadowColor: Colors.green,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 200,
+                                  child: Text("Frecuencia cardiaca",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          //color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          foreground: Paint()
+                                            ..shader = linearGradient1)),
+                                ),
+                                Icon(Icons.favorite,
+                                    color: Colors.green, size: 40),
+                                Container(
+                                  width: 100,
+                                  child: Text(90.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 60,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green)),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              child: graficaBPM(data: data),
+                            ),
                           ],
-                          xValueMapper: (SalesData sales, _) => sales.year,
-                          yValueMapper: (SalesData sales, _) => sales.sales,
-                          // Render the data label
-                          dataLabelSettings: DataLabelSettings(isVisible: true))
-                    ]),*/
-              ])),
-        ]));
+                        ),
+                      ),
+                      //la otra variable capturada
+                    ],
+                  ),
+                ))
+          ]),
+        ));
   }
 }
 
@@ -104,50 +126,89 @@ class graficaBPM extends StatelessWidget {
   }) : super(key: key);
 
   final DatosBanda data;
-  //List<_ChartData> chartData = <_ChartData>[];
 
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now().toString();
+    List<_ChartData> chartData = <_ChartData>[
+      _ChartData("00:00", 0),
+    ];
 
+    ChartSeriesController? _chartSeriesController;
+    int contador = 0;
     return StreamBuilder(
       stream: data
           .datoBanda, //voy a la clase y la función dentro que entrega el valor del stream
       initialData: 0,
       builder: (_, AsyncSnapshot<dynamic> snapshot) {
-        print(snapshot.data);
-        // ignore: non_constant_identifier_names
-        //<SalesData>[].add(snapshot.data.toDouble());
-        //SalesData(now, snapshot.data.toDouble());
-        print(SalesData);
-        //<SalesData>[].add(now,snapshot.data.toDouble());
-        return SfCartesianChart(
-            tooltipBehavior: TooltipBehavior(
-                enable: true, activationMode: ActivationMode.longPress),
-            primaryXAxis: CategoryAxis(),
-            series: <ChartSeries>[
-              // Initialize line series
-              LineSeries<SalesData, String>(
-                  dataSource: [
-                    // Bind data source
-                    SalesData('01:00', 60),
-                    SalesData('01:05', 62),
-                    SalesData('01:10', 60),
-                    SalesData('01:15', 70),
-                    SalesData('01:16', snapshot.data.toDouble())
-                  ],
-                  xValueMapper: (SalesData sales, _) => sales.year,
-                  yValueMapper: (SalesData sales, _) => sales.sales,
-                  // Render the data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
-            ]);
+        int entregarBPM() {
+          return snapshot.data;
+        }
+
+        void _updateDataSource() {
+          contador = contador + 1;
+          chartData
+              .add(_ChartData(contador.toString(), snapshot.data.toDouble()));
+          if (chartData.length == 20) {
+            // Removes the last index data of data source.
+            chartData.removeAt(0);
+            // Here calling updateDataSource method with addedDataIndexes to add data in last index and removedDataIndexes to remove data from the last.
+            _chartSeriesController?.updateDataSource(
+                addedDataIndexes: <int>[chartData.length - 1],
+                removedDataIndexes: <int>[0]);
+          }
+        }
+
+        _updateDataSource();
+
+        return Card(
+          shadowColor: Colors.red,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Container(
+            //padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.green, Colors.white],
+                          begin: Alignment.topRight,
+                          end: Alignment.topLeft)),
+                  child: SfCartesianChart(
+                      tooltipBehavior: TooltipBehavior(
+                          enable: true,
+                          activationMode: ActivationMode.longPress),
+                      primaryXAxis: CategoryAxis(),
+                      series: <ChartSeries>[
+                        // Initialize line series
+                        LineSeries<_ChartData, String>(
+                            onRendererCreated:
+                                (ChartSeriesController controller) {
+                              // Assigning the controller to the _chartSeriesController.
+                              _chartSeriesController = controller;
+                            },
+                            dataSource: chartData,
+                            xValueMapper: (_ChartData sales, _) => sales.hora,
+                            yValueMapper: (_ChartData sales, _) => sales.bpm,
+                            // Render the data label
+                            dataLabelSettings:
+                                DataLabelSettings(isVisible: true))
+                      ]),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
 }
 
-class SalesData {
-  SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
+class _ChartData {
+  _ChartData(this.hora, this.bpm);
+  final String hora;
+  final double bpm;
 }

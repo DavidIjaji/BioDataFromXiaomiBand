@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_prueba/pages/start_page.dart';
+
 import 'package:get/get.dart';
 
 class ControlDatosPersonales extends GetxController {
   //const ControlDatosPersonales({ Key? key }) : super(key: key);
 
-  final nombres = TextEditingController();
+  final names = TextEditingController();
   final apellidos = TextEditingController();
   final sexo = TextEditingController();
   final edad = TextEditingController();
   // ignore: non_constant_identifier_names
   final ID = TextEditingController();
+  String sex = "";
+  String tipoID = "";
 
   CollectionReference pacientes =
       FirebaseFirestore.instance.collection('pacientes');
 
-  Future<void> crearNuevoUsuario() async {
-    print(nombres.text);
-    print(nombres);
+  Future<void> crearNuevoUsuario(
+      //crea un documento con el id del usuario
+      _nombres,
+      _apellidos,
+      _edad,
+      _sexo,
+      _tipoID,
+      _id) async {
     return pacientes
-        .add({
-          'nombres': nombres.text,
-          'apellidos': apellidos.text,
-          'sexo': sexo,
-          'edad': edad.text,
-          'ID': ID.text
+        .doc(_id)
+        .set({
+          'nombres': _nombres,
+          'apellidos': _apellidos,
+          'sexo': _sexo,
+          'edad': _edad,
+          'tipoID': _tipoID,
+          'ID': _id,
         })
-        .then((value) => print("Usuario añadido"))
+        .then((value) => print("exito"))
         .catchError((error) => print("Error: $error"));
   }
 }
