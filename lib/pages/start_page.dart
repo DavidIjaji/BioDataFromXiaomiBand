@@ -31,6 +31,9 @@ class _StartPageState extends State<StartPage> {
     final Shader? linearGradient1 = LinearGradient(
       colors: <Color>[Colors.green, Colors.white],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
+    final Shader? linearGradient2 = LinearGradient(
+      colors: <Color>[Colors.yellow, Colors.black],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
@@ -110,13 +113,209 @@ class _StartPageState extends State<StartPage> {
                           ],
                         ),
                       ),
-                      //la otra variable capturada
+                      //la otra variable capturada Pasos
+                      Pasos(linearGradient2: linearGradient2),
+                      //otra variable Clorias
+                      Calorias(linearGradient2: linearGradient2),
                     ],
                   ),
                 ))
           ]),
         ));
   }
+}
+
+class Calorias extends StatelessWidget {
+  const Calorias({
+    Key? key,
+    required this.linearGradient2,
+  }) : super(key: key);
+
+  final Shader? linearGradient2;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<_ChartDataPasos> _chartDataPasos = [
+      _ChartDataPasos('Calorias', 500, Colors.pink),
+    ];
+    late TooltipBehavior _tooltipBehavior;
+
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    return Card(
+      elevation: 10,
+      shadowColor: Colors.yellow,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 150,
+                width: 150,
+                child: SfCircularChart(
+                    tooltipBehavior: _tooltipBehavior,
+                    series: <CircularSeries>[
+                      // Render pie chart
+                      RadialBarSeries<_ChartDataPasos, String>(
+                          dataSource: _chartDataPasos,
+                          xValueMapper: (_ChartDataPasos data, _) => data.x,
+                          yValueMapper: (_ChartDataPasos data, _) => data.y,
+                          pointColorMapper: (_ChartDataPasos data, _) =>
+                              data.color,
+                          trackColor: Colors.red,
+                          strokeColor: Colors.yellow,
+                          maximumValue: 1200,
+                          enableTooltip: true,
+                          cornerStyle: CornerStyle.bothCurve),
+                    ]),
+              ),
+              Container(
+                //width: 200,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text("Calorias",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                //color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                foreground: Paint()..shader = linearGradient2)),
+                      ],
+                    ),
+                    Icon(Icons.fireplace_rounded, color: Colors.red, size: 40),
+                    Text("0",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            //color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()..shader = linearGradient2)),
+                  ],
+                ),
+              ), /*
+              
+              Container(
+                width: 10,
+                child: Text(90.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green)),
+              ),*/
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Pasos extends StatelessWidget {
+  const Pasos({
+    Key? key,
+    required this.linearGradient2,
+  }) : super(key: key);
+
+  final Shader? linearGradient2;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<_ChartDataPasos> _chartDataPasos = [
+      _ChartDataPasos('Pasos', 500, Colors.yellow),
+    ];
+    late TooltipBehavior _tooltipBehavior;
+
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    return Card(
+      elevation: 10,
+      shadowColor: Colors.yellow,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 150,
+                width: 150,
+                child: SfCircularChart(
+                    tooltipBehavior: _tooltipBehavior,
+                    series: <CircularSeries>[
+                      // Render pie chart
+                      RadialBarSeries<_ChartDataPasos, String>(
+                          dataSource: _chartDataPasos,
+                          xValueMapper: (_ChartDataPasos data, _) => data.x,
+                          yValueMapper: (_ChartDataPasos data, _) => data.y,
+                          pointColorMapper: (_ChartDataPasos data, _) =>
+                              data.color,
+                          trackColor: Colors.amber,
+                          strokeColor: Colors.yellow,
+                          maximumValue: 1200,
+                          enableTooltip: true,
+                          cornerStyle: CornerStyle.bothCurve),
+                    ]),
+              ),
+              Container(
+                //width: 200,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text("Pasos",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                //color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                foreground: Paint()..shader = linearGradient2)),
+                      ],
+                    ),
+                    Icon(Icons.directions_walk, color: Colors.orange, size: 40),
+                    Text("0",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            //color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()..shader = linearGradient2)),
+                  ],
+                ),
+              ), /*
+              
+              Container(
+                width: 10,
+                child: Text(90.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green)),
+              ),*/
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChartDataPasos {
+  _ChartDataPasos(this.x, this.y, this.color);
+  final String x;
+  final int y;
+  final Color color;
 }
 
 class graficaBPM extends StatelessWidget {
