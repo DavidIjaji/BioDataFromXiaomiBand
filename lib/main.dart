@@ -41,11 +41,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    
-    
-
     return FutureBuilder(
-      
       // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
@@ -60,10 +56,7 @@ class _AppState extends State<App> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return SpinKitPumpingHeart(
-          color: Colors.pink,
-          size: 50.0,
-        );
+        return Loading();
       },
     );
   }
@@ -86,13 +79,11 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Center(
-          child: SpinKitPumpingHeart(
-            color: Colors.pink,
-            size: 50.0,
-          ),
+    return Scaffold(
+      body: Center(
+        child: SpinKitPumpingHeart(
+          color: Colors.pink,
+          size: 50.0,
         ),
       ),
     );

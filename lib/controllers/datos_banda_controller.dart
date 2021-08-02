@@ -21,4 +21,5 @@ class DatosBanda /*extends Getx*/ {
       yield this.bpm();
     }
   }
+  
 }
