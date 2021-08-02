@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_prueba/routes/my_routes.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,30 +34,71 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with SingleTickerProviderStateMixin {
   /// The future is part of the state of our widget. We should not call `initializeApp`
   /// directly inside
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
+  Widget _init = Center(
+      child: SpinKitPumpingHeart(
+    color: Colors.blue[300],
+    size: 150.0,
+
+    //controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 3000))
+  ));
+
+  @override
+  void initState() {
+    print("init state");
+    super.initState();
+  }
+
+  _AppState() {
+    Timer(const Duration(milliseconds: 2000), () {
+      setState(() {
+        _init = FutureBuilder(
+          // Initialize FlutterFire:
+          future: _initialization,
+          builder: (context, snapshot) {
+            // Check for errors
+            if (snapshot.hasError) {
+              return SomethingWentWrong();
+            }
+
+            // Once complete, show your application
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Exito();
+            }
+            return Center(
+              child: SpinKitPumpingHeart(
+                  color: Colors.blue[300],
+                  size: 150.0,
+                  controller: AnimationController(
+                      vsync: this,
+                      duration: const Duration(milliseconds: 3000))),
+            );
+          },
+        );
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return SomethingWentWrong();
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Exito();
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Loading();
-      },
+    print("en build");
+    // Otherwise, show something whilst waiting for initialization to complete
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'OpenSans'),
+      home: Scaffold(
+          backgroundColor: Colors.white,
+          body: AnimatedSwitcher(
+            duration: Duration(milliseconds: 800),
+            child: _init,
+            //transitionBuilder:(child,animation)=>ScaleTransition(
+            //scale: animation,
+            //child: SizedBox.expand(child:child),),
+            switchInCurve: Curves.fastOutSlowIn,
+          )),
     );
   }
 }

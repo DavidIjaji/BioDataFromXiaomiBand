@@ -36,6 +36,9 @@ dependencies:
   flutter_spinkit: ^5.0.0
   cloud_firestore: ^2.4.0
   flutter_launcher_icons: ^0.9.1
+  animated_button: ^0.2.0
+  animated_text_kit: ^4.2.1
+  google_fonts: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -58,8 +61,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/LogoBioSolutions.png
-      - assets/icono.png
-  #   - images/a_dot_ham.jpeg
+      - assets/LogoBioSolutions2.jpeg
+      - assets/logo/google.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -72,11 +75,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: OpenSans
+      fonts:
+      - asset: assets/fonts/OpenSans-Regular.ttf
+      - asset: assets/fonts/OpenSans-Italic.ttf
+      - asset: assets/fonts/OpenSans-Bold.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
