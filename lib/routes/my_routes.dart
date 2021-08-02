@@ -13,7 +13,7 @@ routes() => {
           name: "/login", page: () => LoginPage(), transition: Transition.zoom),
       GetPage(
           name: "/registration",
-          page: () => RegisterLoginPage(),
+          page: () => RegisterPage(),
           transition: Transition.zoom),
       GetPage(
           name: "/formularioDatos",
