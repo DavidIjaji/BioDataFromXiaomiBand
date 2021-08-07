@@ -34,7 +34,16 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(child: Text("Agrega tus datos")),
+                Center(
+                    child: Text(
+                  "Agrega tus datos",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'OpenSans',
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
                 TextFormField(
                   controller: controller.names,
                   decoration: const InputDecoration(labelText: 'Nombres'),
@@ -139,31 +148,36 @@ class enviarDatos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 16.0),
-      alignment: Alignment.center,
-      child: ElevatedButton(
+        padding: const EdgeInsets.only(top: 16.0),
+        alignment: Alignment.center,
+        child: Container(
+            padding: EdgeInsets.symmetric(vertical: 25.0),
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () async {
+                return (ControlDatosPersonales()
+                    .crearNuevoUsuario(
+                        controller.names.text,
+                        controller.apellidos.text,
+                        controller.edad.text,
+                        controller.sex,
+                        controller.tipoID,
+                        controller.ID.text)
+                    .then((value) => Get.to(StartPage())));
+              },
+              child: Text(
+                'CONTINUA',
+                style: TextStyle(
+                  color: Color(0xFF527DAA),
+                  letterSpacing: 1.5,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'OpenSans',
+                ),
+              ),
+            )) /*ElevatedButton(
         child: Text('Enviar Datos'),
         onPressed: () async {
-          /*
-          print(controller.apellidos.text);
-          if (controller.names.text == null) {
-            Get.snackbar(
-                "Datos incompletos", "Por favor llene el campo nombres");
-          } else if (controller.apellidos.text == null) {
-            Get.snackbar(
-                "Datos incompletos", "Por favor llene el campo apellidos");
-          } else if (controller.edad.text == null) {
-            Get.snackbar("Datos incompletos", "Por favor llene el campo edad");
-          } else if (controller.sex == "Falta") {
-            Get.snackbar("Datos incompletos", "Por favor llene el campo sexo");
-          } else if (controller.tipoID == "Falta") {
-            Get.snackbar(
-                "Datos incompletos", "Por favor llene el campo tipo ID");
-          } else if (controller.ID.text == null) {
-            Get.snackbar("Datos incompletos", "Por favor llene el campo ID");
-          } else {
-            Get.snackbar("Gracias", "Datos guardados");
-            */
           return (ControlDatosPersonales()
               .crearNuevoUsuario(
                   controller.names.text,
@@ -175,7 +189,7 @@ class enviarDatos extends StatelessWidget {
               .then((value) => Get.to(StartPage())));
           //}
         },
-      ),
-    );
+      ),*/
+        );
   }
 }

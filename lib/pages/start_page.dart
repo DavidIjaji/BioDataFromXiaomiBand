@@ -3,12 +3,15 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_prueba/controllers/firestore_controller.dart';
 import 'package:flutter_prueba/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
 import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
+import 'package:intl/intl.dart';
+
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class StartPage extends StatefulWidget {
@@ -37,7 +40,33 @@ class _StartPageState extends State<StartPage> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            controller.signOut();
+            //controller.signOut();
+            //controller.RevisarDatos("6373738");
+            /*
+            FSCRUD().AddVariable(
+                "davidijajo@gmail.com", "09082021", "Pasos", "1500");
+            FSCRUD().LeerVariable("davidijajo@gmail.com", "07082021", "HR");
+            FSCRUD()
+                .AddVariable("davidijajo@gmail.com", "07082021", "Pasos", "10");
+            FSCRUD().AddVariable(
+                "davidijajo@gmail.com", "07082021", "Distancia", "40");
+                
+            DateTime now = DateTime.now();
+            String formattedDate = DateFormat('kk:mm').format(now);
+            FSCRUD().AddHR("davidijajo@gmail.com", "11082021", [
+              60,
+              61,
+              63,
+              62,
+              65
+            ], [
+              formattedDate,
+              formattedDate,
+              formattedDate,
+              formattedDate,
+              formattedDate
+            ]);
+            */
           },
           child: Icon(Icons.exit_to_app),
           backgroundColor: Colors.red,

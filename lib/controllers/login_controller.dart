@@ -25,12 +25,15 @@ class LoginController extends GetxController {
       Get.snackbar('Hola', 'su ingreso ha sido exitoso');
       var esNuevo = userCredential.additionalUserInfo!.isNewUser;
       final user = userCredential.user;
+      //var llenoTodo = RevisarDatos(user!.email);
       Future.delayed(
         Duration(seconds: 2),
         () {
           print("LOGIN DE USER Y PASSWORD");
           print("es nuevo? $esNuevo");
-          if (esNuevo) {
+
+          // ignore: unrelated_type_equality_checks
+          if (esNuevo /*|| llenoTodo == true*/) {
             //si es nuevo va llenar el formualario si no pues se va a la la grafica
             Get.to(FormularioDatosPersonales());
             //si es nuevo hace un documento con el id en pacientes
@@ -91,9 +94,16 @@ class LoginController extends GetxController {
       final user = userCredential.user;
       Get.snackbar('Hola', 'Sing In ${user!.email} with Google');
       print('Ingreso bien');
+      /*
+      var llenoTodo = RevisarDatos(user.email);
+      print("VERRRR ACAAAAAAAA");
+      print(llenoTodo);
+      */
       Future.delayed(Duration(seconds: 2), () {
-        if (esNuevo) {
-          //si es nuevo se va a completar los datos de registro
+        //bool llenoTodo = RevisarDatos(user.email);
+        if (esNuevo /*|| llenoTodo == "siga"*/) {
+          /*si es nuevo se va a completar los datos de registro o si no se han 
+          completado todos los datos*/
           Get.to(FormularioDatosPersonales());
         } else {
           //si no es nuevo pasa de una a la pantalla
@@ -105,5 +115,32 @@ class LoginController extends GetxController {
       Get.snackbar('Fallo', 'Failed to sign in with Google: $e',
           snackPosition: SnackPosition.BOTTOM);
     }
+  }
+
+  Future RevisarDatos(correo) async {
+    FirebaseFirestore.instance
+        .collection('pacientes')
+        .doc(correo)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        print('Document data: ${documentSnapshot.data()}');
+        Map<String, dynamic> diccionario =
+            documentSnapshot.data() as Map<String, dynamic>;
+        if (diccionario["apellidos"] != "" &&
+            diccionario["tipoID"] != "" &&
+            diccionario["ID"] != "" &&
+            diccionario["M"] != "" &&
+            diccionario["edad"] != "" &&
+            diccionario["nombres"] != "") {
+          return "siga";
+        } else {
+          return "no";
+        }
+      } else {
+        print('Document does not exist on the database');
+        return "no";
+      }
+    });
   }
 }
