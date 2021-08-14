@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_prueba/controllers/firestore_controller.dart';
 import 'package:flutter_prueba/pages/home_page.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -40,7 +41,7 @@ class _StartPageState extends State<StartPage> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            //controller.signOut();
+            controller.signOut();
             //controller.RevisarDatos("6373738");
             /*
             FSCRUD().AddVariable(
@@ -76,14 +77,17 @@ class _StartPageState extends State<StartPage> {
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Container(
                 height: MediaQuery.of(context).copyWith().size.height * 0.2,
-                color: Colors.black,
+                color: Colors.white,
                 padding: const EdgeInsets.only(top: 20.0),
                 alignment: Alignment.center,
                 child: Text("BioSolutions",
                     style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        foreground: Paint()..shader = linearGradient))),
+                      fontSize: 40,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                      /*foreground: Paint()..shader = linearGradient*/
+                    ))),
             Container(
                 //este container tendra las tarjetas de los datos a visualizar
                 height: MediaQuery.of(context).copyWith().size.height * 0.8,
@@ -103,7 +107,7 @@ class _StartPageState extends State<StartPage> {
                       //aqui se pondran las cartas
                       Card(
                         elevation: 10,
-                        shadowColor: Colors.green,
+                        shadowColor: Colors.blue,
                         clipBehavior: Clip.antiAlias,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
@@ -117,14 +121,17 @@ class _StartPageState extends State<StartPage> {
                                   child: Text("Frecuencia cardiaca",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 30,
-                                          //color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          foreground: Paint()
-                                            ..shader = linearGradient1)),
+                                        fontSize: 30,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.normal,
+                                      )),
                                 ),
-                                Icon(Icons.favorite,
-                                    color: Colors.green, size: 40),
+                                /*Icon(Icons.favorite,
+                                    color: Colors.blue, size: 40),*/
+                                SpinKitPumpingHeart(
+                                  color: Colors.blue[300],
+                                  size: 40,
+                                ),
                                 Container(
                                   width: 100,
                                   child: Text(90.toString(),
@@ -132,7 +139,7 @@ class _StartPageState extends State<StartPage> {
                                       style: TextStyle(
                                           fontSize: 60,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.green)),
+                                          color: Colors.blue)),
                                 ),
                               ],
                             ),
@@ -172,7 +179,7 @@ class Calorias extends StatelessWidget {
     _tooltipBehavior = TooltipBehavior(enable: true);
     return Card(
       elevation: 10,
-      shadowColor: Colors.yellow,
+      shadowColor: Colors.blue,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -258,14 +265,14 @@ class Pasos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_ChartDataPasos> _chartDataPasos = [
-      _ChartDataPasos('Pasos', 500, Colors.yellow),
+      _ChartDataPasos('Pasos', 500, Colors.blue),
     ];
     late TooltipBehavior _tooltipBehavior;
 
     _tooltipBehavior = TooltipBehavior(enable: true);
     return Card(
       elevation: 10,
-      shadowColor: Colors.yellow,
+      shadowColor: Colors.blue,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -278,50 +285,57 @@ class Pasos extends StatelessWidget {
             children: [
               Container(
                 height: 150,
-                width: 150,
-                child: SfCircularChart(
-                    tooltipBehavior: _tooltipBehavior,
-                    series: <CircularSeries>[
-                      // Render pie chart
-                      RadialBarSeries<_ChartDataPasos, String>(
-                          dataSource: _chartDataPasos,
-                          xValueMapper: (_ChartDataPasos data, _) => data.x,
-                          yValueMapper: (_ChartDataPasos data, _) => data.y,
-                          pointColorMapper: (_ChartDataPasos data, _) =>
-                              data.color,
-                          trackColor: Colors.amber,
-                          strokeColor: Colors.yellow,
-                          maximumValue: 1200,
-                          enableTooltip: true,
-                          cornerStyle: CornerStyle.bothCurve),
-                    ]),
-              ),
-              Container(
-                //width: 200,
-                child: Column(
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Text("Pasos",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
+                    SfCircularChart(
+                        tooltipBehavior: _tooltipBehavior,
+                        series: <CircularSeries>[
+                          // Render pie chart
+                          RadialBarSeries<_ChartDataPasos, String>(
+                            dataSource: _chartDataPasos,
+                            xValueMapper: (_ChartDataPasos data, _) => data.x,
+                            yValueMapper: (_ChartDataPasos data, _) => data.y,
+                            pointColorMapper: (_ChartDataPasos data, _) =>
+                                data.color,
+                            maximumValue: 1200,
+                            enableTooltip: true,
+                            animationDuration: 10,
+                            innerRadius: "60",
+                            cornerStyle: CornerStyle.bothFlat,
+                            trackBorderWidth: 1,
+                            trackBorderColor: Colors.transparent,
+                            radius: "100%",
+                          ),
+                        ]),
+                    Container(
+                      //width: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Pasos",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                //color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Icon(Icons.directions_walk,
+                              color: Colors.blue, size: 40),
+                          Text("0",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
                                 fontSize: 20,
                                 //color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                foreground: Paint()..shader = linearGradient2)),
-                      ],
+                              )),
+                        ],
+                      ),
                     ),
-                    Icon(Icons.directions_walk, color: Colors.orange, size: 40),
-                    Text("0",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            //color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            foreground: Paint()..shader = linearGradient2)),
                   ],
                 ),
-              ), /*
+              ),
+              /*
               
               Container(
                 width: 10,
@@ -368,10 +382,6 @@ class graficaBPM extends StatelessWidget {
           .datoBanda, //voy a la clase y la función dentro que entrega el valor del stream
       initialData: 0,
       builder: (_, AsyncSnapshot<dynamic> snapshot) {
-        int entregarBPM() {
-          return snapshot.data;
-        }
-
         void _updateDataSource() {
           contador = contador + 1;
           chartData
@@ -388,47 +398,48 @@ class graficaBPM extends StatelessWidget {
 
         _updateDataSource();
 
-        return Card(
-          shadowColor: Colors.red,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Container(
-            //padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.green, Colors.white],
-                          begin: Alignment.topRight,
-                          end: Alignment.topLeft)),
-                  child: SfCartesianChart(
-                      tooltipBehavior: TooltipBehavior(
-                          enable: true,
-                          activationMode: ActivationMode.longPress),
-                      primaryXAxis: CategoryAxis(),
-                      series: <ChartSeries>[
-                        // Initialize line series
-                        LineSeries<_ChartData, String>(
-                            onRendererCreated:
-                                (ChartSeriesController controller) {
-                              // Assigning the controller to the _chartSeriesController.
-                              _chartSeriesController = controller;
-                            },
-                            dataSource: chartData,
-                            xValueMapper: (_ChartData sales, _) => sales.hora,
-                            yValueMapper: (_ChartData sales, _) => sales.bpm,
-                            // Render the data label
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: true))
-                      ]),
-                ),
-              ],
+        return Column(
+          children: [
+            Container(
+              height: 120,
+              /*
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.green, Colors.white],
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft)),
+                      */
+              child: SfCartesianChart(
+                  backgroundColor: Colors.white,
+                  tooltipBehavior: TooltipBehavior(
+                      canShowMarker: true,
+                      enable: true,
+                      activationMode: ActivationMode.singleTap),
+                  primaryXAxis: CategoryAxis(
+                    isVisible: false,
+                  ),
+                  primaryYAxis: CategoryAxis(isVisible: false),
+                  series: <ChartSeries>[
+                    // Initialize line series
+                    AreaSeries<_ChartData, String>(
+                        enableTooltip: true,
+                        gradient: LinearGradient(
+                            colors: <Color>[Colors.white, Colors.blue],
+                            end: Alignment.topCenter,
+                            begin: Alignment.bottomCenter),
+                        onRendererCreated: (ChartSeriesController controller) {
+                          // Assigning the controller to the _chartSeriesController.
+                          _chartSeriesController = controller;
+                        },
+                        dataSource: chartData,
+                        xValueMapper: (_ChartData sales, _) => sales.hora,
+                        yValueMapper: (_ChartData sales, _) => sales.bpm,
+                        // Render the data label
+                        dataLabelSettings: DataLabelSettings(
+                            isVisible: true, alignment: ChartAlignment.center))
+                  ]),
             ),
-          ),
+          ],
         );
       },
     );
