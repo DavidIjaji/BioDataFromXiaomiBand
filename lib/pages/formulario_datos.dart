@@ -20,45 +20,81 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [Colors.white, Colors.blue],
-              begin: Alignment.centerLeft,
-              end: Alignment.bottomCenter),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF73AEF5),
+              Color(0xFF61A4F1),
+              Color(0xFF478DE0),
+              Color(0xFF398AE5),
+            ],
+            stops: [0.1, 0.4, 0.7, 0.9],
+          ),
         ),
         child: Form(
           child: Padding(
             padding: const EdgeInsets.all(40.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: ListView(
               children: [
                 Center(
                     child: Text(
                   "Agrega tus datos",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'OpenSans',
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
-                TextFormField(
-                  controller: controller.names,
-                  decoration: const InputDecoration(labelText: 'Nombres'),
-                  validator: (value) {
-                    if (value == null) {
-                      empty = 1;
-                      print("Nombres esta vacio");
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  /*
+                  decoration: BoxDecoration(
+                    border: Border(),
+                    color: Color(0xFF527DAA),
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),*/
+                  height: 50.0,
+                  child: TextFormField(
+                    controller: controller.names,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(borderSide: BorderSide()),
+                      labelText: 'Nombres',
+                      labelStyle:
+                          new TextStyle(color: Colors.white, fontSize: 16.0),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                    ),
+                    validator: (value) {
+                      if (value == null) {
+                        empty = 1;
+                        print("Nombres esta vacio");
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 TextFormField(
                   controller: controller.apellidos,
-                  decoration: const InputDecoration(labelText: 'Apellidos'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                    labelText: 'Apellidos',
+                    labelStyle:
+                        new TextStyle(color: Colors.white, fontSize: 16.0),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       empty = 2;
@@ -66,6 +102,9 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
                     }
                     return null;
                   },
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 Align(
                   alignment: Alignment.topLeft,
@@ -87,9 +126,19 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
                         DropdownMenuItem(child: Text("Otro"), value: "Otro"),
                       ]),
                 ),
+                SizedBox(
+                  height: 15.0,
+                ),
                 TextFormField(
                   controller: controller.edad,
-                  decoration: const InputDecoration(labelText: 'Edad'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                    labelText: 'Edad',
+                    labelStyle:
+                        new TextStyle(color: Colors.white, fontSize: 16.0),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       Get.snackbar(
@@ -98,6 +147,9 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
                     }
                     return null;
                   },
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 Align(
                   alignment: Alignment.topLeft,
@@ -115,16 +167,28 @@ class _FormularioDatosPersonalesState extends State<FormularioDatosPersonales> {
                         DropdownMenuItem(child: Text("CE"), value: "CE"),
                       ]),
                 ),
+                SizedBox(
+                  height: 15.0,
+                ),
                 TextFormField(
                   controller: controller.ID,
-                  decoration: const InputDecoration(
-                      labelText: 'Numero de identificación'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                    labelText: 'Numero de identificación',
+                    labelStyle:
+                        new TextStyle(color: Colors.white, fontSize: 16.0),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
                   },
+                ),
+                SizedBox(
+                  height: 15.0,
                 ),
                 enviarDatos(controller: controller),
               ],
@@ -166,9 +230,9 @@ class enviarDatos extends StatelessWidget {
                     .then((value) => Get.to(StartPage())));
               },
               child: Text(
-                'CONTINUA',
+                'CONTINUAR',
                 style: TextStyle(
-                  color: Color(0xFF527DAA),
+                  color: Colors.white /*Color(0xFF527DAA)*/,
                   letterSpacing: 1.5,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

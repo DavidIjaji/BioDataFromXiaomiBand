@@ -11,6 +11,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FSCRUD {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
+  Future LeerDatosPaciente(correo) async {
+    print(FirebaseFirestore.instance.collection("pacientes").doc(correo).get());
+    /*
+    FirebaseFirestore.instance
+        .collection("pacientes")
+        .doc(correo)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      Map<String, dynamic> consulta =
+          documentSnapshot.data() as Map<String, dynamic>;
+      print(consulta);
+      return (consulta);
+    });
+    */
+  }
+
   Future LeerVariable(correo, fecha, variable) async {
     FirebaseFirestore.instance
         .collection("pacientes")
@@ -19,7 +35,6 @@ class FSCRUD {
         .doc(variable)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
-      print("ACAAAAAAAAA");
       Map<String, dynamic> consulta =
           documentSnapshot.data() as Map<String, dynamic>;
       print(consulta);

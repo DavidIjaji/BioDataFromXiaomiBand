@@ -38,126 +38,158 @@ class _StartPageState extends State<StartPage> {
     final Shader? linearGradient2 = LinearGradient(
       colors: <Color>[Colors.yellow, Colors.black],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            controller.signOut();
-            //controller.RevisarDatos("6373738");
-            /*
-            FSCRUD().AddVariable(
-                "davidijajo@gmail.com", "09082021", "Pasos", "1500");
-            FSCRUD().LeerVariable("davidijajo@gmail.com", "07082021", "HR");
-            FSCRUD()
-                .AddVariable("davidijajo@gmail.com", "07082021", "Pasos", "10");
-            FSCRUD().AddVariable(
-                "davidijajo@gmail.com", "07082021", "Distancia", "40");
-                
-            DateTime now = DateTime.now();
-            String formattedDate = DateFormat('kk:mm').format(now);
-            FSCRUD().AddHR("davidijajo@gmail.com", "11082021", [
-              60,
-              61,
-              63,
-              62,
-              65
-            ], [
-              formattedDate,
-              formattedDate,
-              formattedDate,
-              formattedDate,
-              formattedDate
-            ]);
+    return Container(
+      //height: double.infinity,
+      //child: SingleChildScrollView(
+      //physics: AlwaysScrollableScrollPhysics(),
+      /*
+        padding: EdgeInsets.symmetric(
+            horizontal: 40.0,
+            vertical: 120.0,
+            ),
             */
-          },
-          child: Icon(Icons.exit_to_app),
-          backgroundColor: Colors.red,
-        ),
-        body: Container(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Container(
-                height: MediaQuery.of(context).copyWith().size.height * 0.2,
-                color: Colors.white,
-                padding: const EdgeInsets.only(top: 20.0),
-                alignment: Alignment.center,
-                child: Text("BioSolutions",
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontFamily: 'OpenSans',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                      /*foreground: Paint()..shader = linearGradient*/
-                    ))),
-            Container(
-                //este container tendra las tarjetas de los datos a visualizar
-                height: MediaQuery.of(context).copyWith().size.height * 0.8,
-                width: MediaQuery.of(context).copyWith().size.width,
-                //padding: const EdgeInsets.all(20),
-                //height: 500,
-                //width: 300,
-                /*decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.black, Colors.blue, Colors.white],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),*/
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      //aqui se pondran las cartas
-                      Card(
-                        elevation: 10,
-                        shadowColor: Colors.blue,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
+      child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              controller.signOut();
+              FSCRUD().LeerDatosPaciente("davidijajo@gmail.com");
+              //controller.RevisarDatos("6373738");
+              /*
+              FSCRUD().AddVariable(
+                  "davidijajo@gmail.com", "09082021", "Pasos", "1500");
+              FSCRUD().LeerVariable("davidijajo@gmail.com", "07082021", "HR");
+              FSCRUD()
+                  .AddVariable("davidijajo@gmail.com", "07082021", "Pasos", "10");
+              FSCRUD().AddVariable(
+                  "davidijajo@gmail.com", "07082021", "Distancia", "40");
+                  
+              DateTime now = DateTime.now();
+              String formattedDate = DateFormat('kk:mm').format(now);
+              FSCRUD().AddHR("davidijajo@gmail.com", "11082021", [
+                60,
+                61,
+                63,
+                62,
+                65
+              ], [
+                formattedDate,
+                formattedDate,
+                formattedDate,
+                formattedDate,
+                formattedDate
+              ]);
+              */
+            },
+            child: Icon(Icons.exit_to_app),
+            backgroundColor: Colors.red,
+          ),
+          body: Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                      height:
+                          MediaQuery.of(context).copyWith().size.height * 0.2,
+                      color: Colors.white,
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      alignment: Alignment.center,
+                      child: Text("BioSolutions",
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontFamily: 'OpenSans',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            /*foreground: Paint()..shader = linearGradient*/
+                          ))),
+                  Container(
+                      color: Colors.white,
+                      //este container tendra las tarjetas de los datos a visualizar
+                      height:
+                          MediaQuery.of(context).copyWith().size.height * 0.8,
+                      width: MediaQuery.of(context).copyWith().size.width,
+                      //padding: const EdgeInsets.all(20),
+                      //height: 500,
+                      //width: 300,
+                      /*decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.black, Colors.blue, Colors.white],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),*/
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ListView(
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 200,
-                                  child: Text("Frecuencia cardiaca",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.normal,
-                                      )),
-                                ),
-                                /*Icon(Icons.favorite,
-                                    color: Colors.blue, size: 40),*/
-                                SpinKitPumpingHeart(
-                                  color: Colors.blue[300],
-                                  size: 40,
-                                ),
-                                Container(
-                                  width: 100,
-                                  child: Text(90.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 60,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.blue)),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              child: graficaBPM(data: data),
-                            ),
+                            //aqui se pondran las cartas
+                            CardBPM(data: data),
+                            //la otra variable capturada Pasos
+                            Pasos(linearGradient2: linearGradient2),
+                            //otra variable Clorias
+                            Calorias(linearGradient2: linearGradient2),
                           ],
+                          addAutomaticKeepAlives: false,
                         ),
-                      ),
-                      //la otra variable capturada Pasos
-                      Pasos(linearGradient2: linearGradient2),
-                      //otra variable Clorias
-                      Calorias(linearGradient2: linearGradient2),
-                    ],
-                  ),
-                ))
-          ]),
-        ));
+                      ))
+                ]),
+          )),
+      //),
+    );
+  }
+}
+
+class CardBPM extends StatelessWidget {
+  const CardBPM({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final DatosBanda data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 10,
+      shadowColor: Colors.blue,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 200,
+                child: Text("Frecuencia cardiaca",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.normal,
+                    )),
+              ),
+              /*Icon(Icons.favorite,
+              color: Colors.blue, size: 40),*/
+              SpinKitPumpingHeart(
+                color: Colors.blue[300],
+                size: 40,
+              ),
+              Container(
+                width: 100,
+                child: Text(90.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue)),
+              ),
+            ],
+          ),
+          Container(
+            child: graficaBPM(data: data),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -171,8 +203,8 @@ class Calorias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<_ChartDataPasos> _chartDataPasos = [
-      _ChartDataPasos('Calorias', 500, Colors.pink),
+    final List<_ChartDataCalorias> _chartDataCalorias = [
+      _ChartDataCalorias('Calorias', 700, Colors.blue),
     ];
     late TooltipBehavior _tooltipBehavior;
 
@@ -193,49 +225,66 @@ class Calorias extends StatelessWidget {
               Container(
                 height: 150,
                 width: 150,
-                child: SfCircularChart(
-                    tooltipBehavior: _tooltipBehavior,
-                    series: <CircularSeries>[
-                      // Render pie chart
-                      RadialBarSeries<_ChartDataPasos, String>(
-                          dataSource: _chartDataPasos,
-                          xValueMapper: (_ChartDataPasos data, _) => data.x,
-                          yValueMapper: (_ChartDataPasos data, _) => data.y,
-                          pointColorMapper: (_ChartDataPasos data, _) =>
-                              data.color,
-                          trackColor: Colors.red,
-                          strokeColor: Colors.yellow,
-                          maximumValue: 1200,
-                          enableTooltip: true,
-                          cornerStyle: CornerStyle.bothCurve),
-                    ]),
-              ),
-              Container(
-                //width: 200,
-                child: Column(
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Text("Calorias",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20,
-                                //color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                foreground: Paint()..shader = linearGradient2)),
-                      ],
+                    SfCircularChart(
+                        tooltipBehavior: _tooltipBehavior,
+                        series: <CircularSeries>[
+                          // Render pie chart
+                          RadialBarSeries<_ChartDataCalorias, String>(
+                            dataSource: _chartDataCalorias,
+                            xValueMapper: (_ChartDataCalorias data, _) =>
+                                data.x1,
+                            yValueMapper: (_ChartDataCalorias data, _) =>
+                                data.y1,
+                            pointColorMapper: (_ChartDataCalorias data, _) =>
+                                data.color1,
+                            maximumValue: 1200,
+                            enableTooltip: true,
+                            animationDuration: 10,
+                            innerRadius: "60",
+                            cornerStyle: CornerStyle.bothFlat,
+                            trackBorderWidth: 1,
+                            trackBorderColor: Colors.transparent,
+                            radius: "100%",
+                          ),
+                        ]),
+                    Container(
+                      //width: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Calorias",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      foreground: Paint()
+                                        ..shader = linearGradient2)),
+                            ],
+                          ),
+                          Icon(Icons.fireplace_rounded,
+                              color: Colors.blue, size: 40),
+                          Text("0",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  //color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  foreground: Paint()
+                                    ..shader = linearGradient2)),
+                        ],
+                      ),
                     ),
-                    Icon(Icons.fireplace_rounded, color: Colors.red, size: 40),
-                    Text("0",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            //color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            foreground: Paint()..shader = linearGradient2)),
                   ],
                 ),
-              ), /*
+              ),
+              /*
               
               Container(
                 width: 10,
@@ -252,6 +301,13 @@ class Calorias extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ChartDataCalorias {
+  _ChartDataCalorias(this.x1, this.y1, this.color1);
+  final String x1;
+  final int y1;
+  final Color color1;
 }
 
 class Pasos extends StatelessWidget {
