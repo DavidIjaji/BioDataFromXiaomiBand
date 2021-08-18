@@ -1,13 +1,14 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
-INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
-INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
-INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
-MERGED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
+ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
+INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
+MERGED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
 MERGED from [:firebase_auth] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:cloud_firestore] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:path_provider] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:google_sign_in] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\3638a87214eed3bf2ebe1192bbd082af\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
@@ -50,8 +51,8 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\hp\.gradle\c
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\884ac07bda28f469cfe35c32daf0f0d7\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\270fbb167139d451d67219e9a697045f\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\49cadaaff1a5cc618a6642f8b3463c6e\print-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:2:1-13:12
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\6b72fac9d8d62afd8fae751c18698319\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:2:1-11:12
+MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:2:1-13:12
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml:1:1-7:12
@@ -61,11 +62,11 @@ INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\ap
 		INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
+		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
 		INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-41:12
+		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:1-44:12
 		INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -147,6 +148,22 @@ ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\s
 		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:39:13-30
 	android:name
 		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:38:13-44
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:41:5-68
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-68
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-68
+	android:name
+		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:41:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:42:5-74
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-74
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-74
+	android:name
+		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:42:22-71
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:43:5-80
+	android:name
+		ADDED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml:43:22-78
 uses-sdk
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\main\AndroidManifest.xml
@@ -157,6 +174,8 @@ MERGED from [:cloud_firestore] C:\Users\hp\Documents\ingSoftware\BioDataFromXiao
 MERGED from [:cloud_firestore] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_sign_in] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -241,10 +260,10 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\hp\.gradle\cache
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\270fbb167139d451d67219e9a697045f\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\49cadaaff1a5cc618a6642f8b3463c6e\print-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\49cadaaff1a5cc618a6642f8b3463c6e\print-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:7:5-9:41
-MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\6b72fac9d8d62afd8fae751c18698319\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\6b72fac9d8d62afd8fae751c18698319\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:7:5-9:41
+MERGED from [io.grpc:grpc-android:1.28.0] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\a2bb11f924883a11f37ede3ec18a5ce9\jetified-grpc-android-1.28.0\AndroidManifest.xml:7:5-9:41
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml
 INJECTED from C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion
@@ -301,6 +320,10 @@ ADDED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiB
 		ADDED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_core] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from [:flutter_blue] C:\Users\hp\Documents\ingSoftware\BioDataFromXiaomiBand\build\flutter_blue\intermediates\library_manifest\debug\AndroidManifest.xml:9:22-76
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\dd8cc4ba72bed3fd00f2f016d62438be\jetified-firebase-auth-21.0.1\AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-firestore:23.0.2] C:\Users\hp\.gradle\caches\transforms-2\files-2.1\7bc6b924289dded1d80f334a0786e252\jetified-firebase-firestore-23.0.2\AndroidManifest.xml:13:5-79

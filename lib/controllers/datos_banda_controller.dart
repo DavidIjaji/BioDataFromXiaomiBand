@@ -1,6 +1,6 @@
 //import 'package:get/get.dart';
 import 'dart:math';
-
+import 'package:flutter_prueba/pages/blue_page.dart';
 class DatosBanda /*extends Getx*/ {
   bool a = true;
   num bpm() {

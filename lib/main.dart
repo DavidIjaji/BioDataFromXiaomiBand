@@ -4,6 +4,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_prueba/pages/home_page.dart';
+import 'package:flutter_prueba/pages/inicio_page.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_prueba/routes/my_routes.dart';
@@ -146,7 +147,7 @@ class Exito extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: HomePage(),
+      home: InicioPage(),
     );
   }
 }

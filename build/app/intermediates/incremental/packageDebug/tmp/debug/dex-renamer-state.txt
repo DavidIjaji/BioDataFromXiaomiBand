@@ -1,4 +1,4 @@
-#Mon Aug 02 11:05:02 COT 2021
+#Tue Aug 03 18:37:45 COT 2021
 base.2=C\:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
 path.2=classes3.dex
 base.1=C\:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex

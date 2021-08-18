@@ -18,11 +18,10 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   final controller = Get.put(LoginController());
-
   num cambia = DatosBanda().bpm();
   //propiedad para hacer las emisiones
   final data = new DatosBanda();
-
+  final HR = 90;
   @override
   Widget build(BuildContext context) {
     final Shader? linearGradient = LinearGradient(
@@ -34,94 +33,97 @@ class _StartPageState extends State<StartPage> {
     final Shader? linearGradient2 = LinearGradient(
       colors: <Color>[Colors.yellow, Colors.black],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 300, 400));
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            controller.signOut();
-          },
-          child: Icon(Icons.exit_to_app),
-          backgroundColor: Colors.red,
-        ),
-        body: Container(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Container(
-                height: MediaQuery.of(context).copyWith().size.height * 0.2,
-                color: Colors.black,
-                padding: const EdgeInsets.only(top: 20.0),
-                alignment: Alignment.center,
-                child: Text("BioSolutions",
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        foreground: Paint()..shader = linearGradient))),
-            Container(
-                //este container tendra las tarjetas de los datos a visualizar
-                height: MediaQuery.of(context).copyWith().size.height * 0.8,
-                width: MediaQuery.of(context).copyWith().size.width,
-                //padding: const EdgeInsets.all(20),
-                //height: 500,
-                //width: 300,
-                /*decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.black, Colors.blue, Colors.white],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),*/
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      //aqui se pondran las cartas
-                      Card(
-                        elevation: 10,
-                        shadowColor: Colors.green,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+    return 
+        
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () async {
+        //     controller.signOut();
+        //   },
+        //   child: Icon(Icons.exit_to_app),
+        //   backgroundColor: Colors.red,
+        // ),
+         SingleChildScrollView(
+          child: Container(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Container(
+                  height: MediaQuery.of(context).copyWith().size.height * 0.2,
+                  color: Colors.black,
+                  padding: const EdgeInsets.only(top: 20.0),
+                  alignment: Alignment.center,
+                  child: Text("BioSolutions",
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          foreground: Paint()..shader = linearGradient))),
+              Container(
+                  //este container tendra las tarjetas de los datos a visualizar
+                  height: MediaQuery.of(context).copyWith().size.height * 0.8,
+                  width: MediaQuery.of(context).copyWith().size.width,
+                  //padding: const EdgeInsets.all(20),
+                  //height: 500,
+                  //width: 300,
+                  /*decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.black, Colors.blue, Colors.white],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),*/
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        //aqui se pondran las cartas
+                        Card(
+                          elevation: 10,
+                          shadowColor: Colors.green,
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 200,
+                                    child: Text("Frecuencia cardiaca",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            //color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            foreground: Paint()
+                                              ..shader = linearGradient1)),
+                                  ),
+                                  Icon(Icons.favorite,
+                                      color: Colors.green, size: 40),
+                                  Container(
+                                    width: 100,
+                                    child: Text(HR.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 60,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green)),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                child: graficaBPM(data: data),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 200,
-                                  child: Text("Frecuencia cardiaca",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          //color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          foreground: Paint()
-                                            ..shader = linearGradient1)),
-                                ),
-                                Icon(Icons.favorite,
-                                    color: Colors.green, size: 40),
-                                Container(
-                                  width: 100,
-                                  child: Text(90.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 60,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green)),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              child: graficaBPM(data: data),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //la otra variable capturada Pasos
-                      Pasos(linearGradient2: linearGradient2),
-                      //otra variable Clorias
-                      Calorias(linearGradient2: linearGradient2),
-                    ],
-                  ),
-                ))
-          ]),
-        ));
+                        //la otra variable capturada Pasos
+                        Pasos(linearGradient2: linearGradient2),
+                        //otra variable Clorias
+                        Calorias(linearGradient2: linearGradient2),
+                      ],
+                    ),
+                  ))
+            ]),
+          ),
+        );
   }
 }
 
