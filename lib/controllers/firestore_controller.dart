@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FSCRUD {
+  //esta clase sirve para subir y leer datos
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future LeerDatosPaciente(correo) async {
