@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class ControlDatosPersonales extends GetxController {
@@ -17,6 +17,7 @@ class ControlDatosPersonales extends GetxController {
 
   CollectionReference pacientes =
       FirebaseFirestore.instance.collection('pacientes');
+  User? user = FirebaseAuth.instance.currentUser;
 
   Future<void> crearNuevoUsuario(
       //crea un documento con el id del usuario
@@ -27,7 +28,7 @@ class ControlDatosPersonales extends GetxController {
       _tipoID,
       _id) async {
     return pacientes
-        .doc(_id)
+        .doc(user!.email)
         .set({
           'nombres': _nombres,
           'apellidos': _apellidos,

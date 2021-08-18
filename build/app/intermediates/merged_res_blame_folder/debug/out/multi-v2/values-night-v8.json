@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\david\\Documents\\GitHub\\flutter_prueba\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\david\\Documents\\GitHub\\flutter_prueba\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

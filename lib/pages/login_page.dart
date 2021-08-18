@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
+import 'package:flutter_prueba/pages/register_page.dart';
 import 'package:get/get.dart';
+import 'register_page.dart';
 //import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 // class LoginPage extends StatelessWidget {
@@ -197,8 +199,6 @@ class _LoginPageState extends State<LoginPage> {
   //   );
   // }
 
-  
-
   Widget _buildSignInWithText() {
     return Column(
       children: <Widget>[
@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildSocialBtn( onTap, AssetImage logo) {
+  Widget _buildSocialBtn(onTap, AssetImage logo) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -242,16 +242,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  
-
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
+      onTap: () => Get.to(RegisterPage()),
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'No tienes cuenta? ',
+              text: '¿No tienes cuenta?',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -259,9 +257,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             TextSpan(
-            
               text: ' Regístrate!',
-              
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -277,63 +273,78 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<LoginController>(
-       init: LoginController(),
-       builder: (_) {
-         return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        body: GetBuilder<LoginController>(
+            init: LoginController(),
+            builder: (_) {
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: GestureDetector(
+                  onTap: () => FocusScope.of(context).unfocus(),
+                  child: Stack(
                     children: <Widget>[
-                      Text(
-                        'Ingresa',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF73AEF5),
+                              Color(0xFF61A4F1),
+                              Color(0xFF478DE0),
+                              Color(0xFF398AE5),
+                            ],
+                            stops: [0.1, 0.4, 0.7, 0.9],
+                          ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 25.0),
-                        width: double.infinity,
-                        child: RaisedButton(
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.0,
+                            vertical: 120.0,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Ingresa',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 30.0),
+                              _buildEmailTF(),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              _buildPasswordTF(),
+                              Container(
+                                  padding: EdgeInsets.symmetric(vertical: 25.0),
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      _.signInWithEmailAndPassword();
+                                    },
+                                    child: Text(
+                                      'INGRESA',
+                                      style: TextStyle(
+                                        color: Color(0xFF527DAA),
+                                        letterSpacing: 1.5,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'OpenSans',
+                                      ),
+                                    ),
+                                  )
+                                  /*
+                        RaisedButton(
                           elevation: 5.0,
                           onPressed: () async {
                               _.signInWithEmailAndPassword();
@@ -342,6 +353,7 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
+
                           color: Colors.white,
                           child: Text(
                             'INGRESA',
@@ -353,39 +365,35 @@ class _LoginPageState extends State<LoginPage> {
                               fontFamily: 'OpenSans',
                             ),
                           ),
-                        ),
-                      ),
-                      _buildSignInWithText(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            _buildSocialBtn(
-                               () async {
-                                  _.signInWithGoogle();
-                                },
-                              AssetImage(
-                                'assets/logo/google.jpg',
+                        ),*/
+                                  ),
+                              _buildSignInWithText(),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 30.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    _buildSocialBtn(
+                                      () async {
+                                        _.signInWithGoogle();
+                                      },
+                                      AssetImage(
+                                        'assets/logo/google.jpg',
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              _buildSignupBtn(),
+                            ],
+                          ),
                         ),
-                      ),
-                      _buildSignupBtn(),
+                      )
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
-      );
-       }
-      )
-    );
+              );
+            }));
   }
-
-
-
 }

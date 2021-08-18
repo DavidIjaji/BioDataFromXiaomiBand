@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 #Tue Aug 03 18:37:45 COT 2021
 base.2=C\:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
+=======
+#Sat Aug 14 16:33:38 COT 2021
+base.2=C\:\\Users\\david\\Documents\\GitHub\\flutter_prueba\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
+>>>>>>> 45be24177f428af87b859da5c7f777a00c3fe09a
 path.2=classes3.dex
-base.1=C\:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+base.1=C\:\\Users\\david\\Documents\\GitHub\\flutter_prueba\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
-base.0=C\:\\Users\\hp\\Documents\\ingSoftware\\BioDataFromXiaomiBand\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+base.0=C\:\\Users\\david\\Documents\\GitHub\\flutter_prueba\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
