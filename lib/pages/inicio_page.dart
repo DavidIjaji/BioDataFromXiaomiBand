@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
 import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
-import 'package:provider/provider.dart';
+
 import 'package:flutter_prueba/BLOCS/bloc_data.dart';
 
 

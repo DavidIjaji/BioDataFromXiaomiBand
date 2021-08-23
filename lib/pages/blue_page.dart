@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:encrypt/encrypt.dart' as AES;
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_prueba/controllers/firestore_controller.dart';
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert' show utf8;
@@ -10,10 +11,18 @@ import 'package:pointycastle/api.dart' as API;
 import 'package:pointycastle/block/aes_fast.dart';
 import 'package:pointycastle/block/modes/ecb.dart';
 
+import 'package:flutter_prueba/BLOCS/bloc_data.dart';
+import 'package:flutter_prueba/BLOCS/bloc_extra_data.dart';
+
+import 'package:intl/intl.dart';
+
 
 import 'package:hex/hex.dart';
 
 class BluePage extends StatelessWidget {
+  final bloc;
+  final bloc_extra;
+  BluePage({this.bloc,this.bloc_extra});
   @override
   Widget build(BuildContext context) {
     return 
@@ -24,7 +33,7 @@ class BluePage extends StatelessWidget {
             builder: (c, snapshot) {
               final state = snapshot.data;
               if (state == BluetoothState.on) {
-                return FindDevicesScreen();
+                return FindDevicesScreen(bloc: bloc,bloc_extra: bloc_extra,);
               }
               return BluetoothOffScreen(state: state);
             });
@@ -67,11 +76,14 @@ class BluetoothOffScreen extends StatelessWidget {
 
 
 class FindDevicesScreen extends StatelessWidget {
+  final bloc;
+  final bloc_extra;
+  FindDevicesScreen({this.bloc,this.bloc_extra});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Find Devices'),
+        title: Text('Encuentra dispositivos'),
       ),
       body: RefreshIndicator(
         onRefresh: () =>
@@ -79,6 +91,37 @@ class FindDevicesScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              StreamBuilder<List<BluetoothDevice>>(
+                stream: Stream.periodic(Duration(seconds: 2))
+                    .asyncMap((_) => FlutterBlue.instance.connectedDevices),
+                initialData: [],
+                builder: (c, snapshot) => Column(
+                  children: snapshot.data!
+                      .map((d) => ListTile(
+                            title: Text(d.name),
+                            subtitle: Text(d.id.toString()),
+                            trailing: StreamBuilder<BluetoothDeviceState>(
+                              stream: d.state,
+                              initialData: BluetoothDeviceState.disconnected,
+                              builder: (c, snapshot) {
+                                if (snapshot.data ==
+                                    BluetoothDeviceState.connected) {
+                                  return ElevatedButton(
+                                    child: Text('ABRIR'),
+                                    onPressed: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DeviceScreen(device: d))),
+                                  );
+                                }
+                                return Text(snapshot.data.toString());
+                              },
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
+              
               StreamBuilder<List<ScanResult>>(
                 stream: FlutterBlue.instance.scanResults,
                 initialData: [],
@@ -91,13 +134,15 @@ class FindDevicesScreen extends StatelessWidget {
                               .push(MaterialPageRoute(builder: (context) {
                             r.device.connect();
                             r.device.discoverServices();
-                            return DeviceScreen(device: r.device);
+                            return DeviceScreen(device: r.device, bloc:bloc, bloc_extra:bloc_extra);
                           })),
                         ),
                       )
                       .toList(),
                 ),
               ),
+
+
             ],
           ),
         ),
@@ -125,15 +170,18 @@ class FindDevicesScreen extends StatelessWidget {
 }
 
 class DeviceScreen extends StatelessWidget {
-  const DeviceScreen({Key? key, required this.device}) : super(key: key);
-
-  final BluetoothDevice device;
+  final bloc;
+  final bloc_extra;
   
+   DeviceScreen({Key? key, required this.device,this.bloc,this.bloc_extra}) : super(key: key);
+  final BluetoothDevice device;
   Future<void>FlujoPeticiones(
+    
     List<BluetoothCharacteristic> HRcharacteristics,
     List<BluetoothCharacteristic> MOREDATAcharacteristics,
     List<BluetoothCharacteristic> AUTHcharacteristics) 
     async{
+
       //print(device.name);
       final String llave;
       if(device.name=="Amazfit Band 5"){
@@ -160,8 +208,8 @@ class DeviceScreen extends StatelessWidget {
           Uint8List randomNumber = Uint8List.fromList(
             [...HEX.decode(HEX.encode(value).substring(6,))],
           );
-          print("RANDOM NUMBER");
-          print(randomNumber);
+          //print("RANDOM NUMBER");
+          //print(randomNumber);
 
           API.BlockCipher cipher = ECBBlockCipher(AESFastEngine());
 
@@ -170,8 +218,8 @@ class DeviceScreen extends StatelessWidget {
             API.KeyParameter(KEYAUTH),
           );
           Uint8List ENCRIPTACION = cipher.process(randomNumber);
-          print("ENCRIPTACION");
-          print(HEX.encode(ENCRIPTACION));
+          //print("ENCRIPTACION");
+          //print(HEX.encode(ENCRIPTACION));
           await AUTHcharacteristics[0].write([3,0,...ENCRIPTACION], withoutResponse: true);
 
             //await HRcharacteristics[1].write([0x15,0x02,0x01], withoutResponse: true);
@@ -182,11 +230,14 @@ class DeviceScreen extends StatelessWidget {
             
             
             HRcharacteristics[0].value.listen((value){
-              print(value[1]);
+              //print(value[1]);
+              bloc.dataEventSink.add(value[1]);  
+             
             });
             
             //await MOREDATAcharacteristics[0].read();
             MOREDATAcharacteristics[0].value.listen((value){
+              bloc_extra.dataEventSink.add(value);
               print(value);
             });
              
@@ -203,6 +254,9 @@ class DeviceScreen extends StatelessWidget {
     final List<BluetoothCharacteristic> HRcharacteristics ;
     final List<BluetoothCharacteristic> AUTHcharacteristics;
     final List<BluetoothCharacteristic> MOREDATAcharacteristics;
+
+    
+
 
 
     services=services.where((s) => 
@@ -226,10 +280,90 @@ class DeviceScreen extends StatelessWidget {
 
       FlujoPeticiones(HRcharacteristics,MOREDATAcharacteristics,AUTHcharacteristics);
     //au
-       print(HRcharacteristics);
+       //print(HRcharacteristics);
       // print(AUTHcharacteristics);
       // print(MOREDATAcharacteristics);
-      return TextButton(onPressed: (){},child: Text("si hay"),);
+      return 
+      Container(child: Column(
+        children: [
+
+          Container(
+            child:Column(
+              children: [
+                Text("CARGANDO LA DATA!")
+                // StreamBuilder<int>(
+                //           stream: bloc.data,
+                //           initialData: 0,
+                //           builder: (c, snapshot) {
+                //           final value = snapshot.data!;
+
+                //           print(value);
+                //           return Text("Frecuencia Cardíaca: "+value.toString(),
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //                 fontSize: 20,
+                //                 fontWeight: FontWeight.bold,
+                //                 color: Colors.blue));
+                        
+
+                //         }
+                //        ,
+                //     ),
+
+                    // StreamBuilder<List<int>>(
+                    //       stream: _blocExtra.data,
+                    //       initialData: [0],
+                    //       builder: (c, snapshot) {
+                    //       final value = snapshot.data!;
+                    //       print(value);
+                          
+                    //       return Container(
+                    //         child: Column(
+                    //           children: [
+                    //             SizedBox(height: 40,),
+                    //             Text("Pasos recorridos: "+(value[1]+256*value[2]+256*value[3]+256*value[4]).toString(),
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                   fontSize: 20,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.blue)
+                    //                   ),
+                    //             SizedBox(height: 40,),
+                    //             Text("Distancia recorrida:"+(value[5]+256*value[6]+256*value[7]+256*value[8]).toString() +" m",
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                   fontSize: 20,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.blue)
+                    //                   ),
+                    //             SizedBox(height: 40,),
+
+                    //             Text("Calorías quemadas: "+(value[9]+256*value[10]+256*value[11]+256*value[12]).toString(),
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                   fontSize: 20,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.blue)
+                    //                   ),
+                    //           ],
+                    //         ),
+                    //       );
+                    //       }
+
+                          
+                        
+
+                        
+                    //    ,
+                    // )
+              ],
+            )
+                
+              
+            ) 
+            ,
+        ],
+      ));
     }
 
   }
@@ -249,11 +383,11 @@ class DeviceScreen extends StatelessWidget {
               switch (snapshot.data) {
                 case BluetoothDeviceState.connected:
                   onPressed = () => device.disconnect();
-                  text = 'DISCONNECT';
+                  text = 'DESCONECTAR';
                   break;
                 case BluetoothDeviceState.disconnected:
                   onPressed = () => device.connect();
-                  text = 'CONNECT';
+                  text = 'CONECTAR';
                   break;
                 default:
                   onPressed = null;
@@ -311,18 +445,7 @@ class DeviceScreen extends StatelessWidget {
                 ),
               ),
             ),
-            StreamBuilder<int>(
-              stream: device.mtu,
-              initialData: 0,
-              builder: (c, snapshot) => ListTile(
-                title: Text('MTU Size'),
-                subtitle: Text('${snapshot.data} bytes'),
-                trailing: IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () => device.requestMtu(223),
-                ),
-              ),
-            ),
+
             StreamBuilder<List<BluetoothService>>(
               stream: device.services,
               initialData: [],
@@ -331,7 +454,7 @@ class DeviceScreen extends StatelessWidget {
                   child: Center(
                     child: 
                     
-                     _authenticate(snapshot.data!),
+                     _authenticate( snapshot.data!),
                     
                   ),
                 );
@@ -344,6 +467,9 @@ class DeviceScreen extends StatelessWidget {
     );
   }
 }
+
+
+
 
 
 class ScanResultTile extends StatelessWidget {
@@ -432,7 +558,7 @@ class ScanResultTile extends StatelessWidget {
       title: _buildTitle(context),
       leading: Text(result.rssi.toString()),
       trailing: ElevatedButton(
-        child: Text('CONNECT'),
+        child: Text('CONECTAR'),
         //color: Colors.black,
         //textColor: Colors.white,
         onPressed: (result.advertisementData.connectable) ? onTap : null,
@@ -460,167 +586,3 @@ class ScanResultTile extends StatelessWidget {
     );
   }
 }
-
-// class DeviceScreen extends StatelessWidget {
-//   const DeviceScreen({Key? key, required this.device}) : super(key: key);
-
-//   final BluetoothDevice device;
-
-//   Future<void>FlujoPeticiones(
-//     List<BluetoothCharacteristic> HRcharacteristics,
-//     List<BluetoothCharacteristic> AUTHcharacteristics,
-//     List<BluetoothCharacteristic> MOREDATAcharacteristics) async{
-//       await AUTHcharacteristics[0].setNotifyValue(!AUTHcharacteristics[0].isNotifying);
-//             AUTHcharacteristics[0].value.listen((value) {
-//               print(value);
-//                 });
-      
-
-//   }
- 
-
-//   Widget _authenticate(List<BluetoothService> services) {
-//     final List<BluetoothCharacteristic> HRcharacteristics ;
-//     final List<BluetoothCharacteristic> AUTHcharacteristics;
-//     final List<BluetoothCharacteristic> MOREDATAcharacteristics;
-
-
-//     services=services.where((s) => 
-//       s.uuid.toString().toUpperCase().substring(4, 8)=="FEE1"
-//     ||s.uuid.toString().toUpperCase().substring(4, 8)=="180D" 
-//     ||s.uuid.toString().toUpperCase().substring(4, 8)=="FEE0",
-
-//     ).toList();
-    
-//     //print(services);
-//     if(services.length==0){
-//     return Text("Debes autenticar tu banda para ver tus datos en la app!");
-//     }else{
-//       HRcharacteristics=services[0].characteristics.toList();
-
-//       MOREDATAcharacteristics=services[1].characteristics.where((c) => 
-//       c.uuid.toString().toUpperCase().substring(4, 8)=="0007").toList();
-
-//       AUTHcharacteristics=services[2].characteristics.where((c) => 
-//       c.uuid.toString().toUpperCase().substring(4, 8)=="0009").toList();
-
-//       FlujoPeticiones(HRcharacteristics,MOREDATAcharacteristics,AUTHcharacteristics);
-//     //au
-//       print(HRcharacteristics);
-//       print(AUTHcharacteristics);
-//       print(MOREDATAcharacteristics);
-//       return TextButton(onPressed: (){},child: Text("si hay"),);
-//     }
-
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(device.name),
-//         actions: <Widget>[
-//           StreamBuilder<BluetoothDeviceState>(
-//             stream: device.state,
-//             initialData: BluetoothDeviceState.connecting,
-//             builder: (c, snapshot) {
-//               VoidCallback? onPressed;
-//               String text;
-//               switch (snapshot.data) {
-//                 case BluetoothDeviceState.connected:
-//                   onPressed = () => device.disconnect();
-//                   text = 'DISCONNECT';
-//                   break;
-//                 case BluetoothDeviceState.disconnected:
-//                   onPressed = () => device.connect();
-//                   text = 'CONNECT';
-//                   break;
-//                 default:
-//                   onPressed = null;
-//                   text = snapshot.data.toString().substring(21).toUpperCase();
-//                   break;
-//               }
-//               return TextButton(
-//                   onPressed: onPressed,
-//                   child: Text(
-//                     text,
-//                     style: Theme.of(context)
-//                         .primaryTextTheme
-//                         .button
-//                         ?.copyWith(color: Colors.white),
-//                   ));
-//             },
-//           )
-//         ],
-//       ),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: <Widget>[
-//             StreamBuilder<BluetoothDeviceState>(
-//               stream: device.state,
-//               initialData: BluetoothDeviceState.connecting,
-//               builder: (c, snapshot) => ListTile(
-//                 leading: (snapshot.data == BluetoothDeviceState.connected)
-//                     ? Icon(Icons.bluetooth_connected)
-//                     : Icon(Icons.bluetooth_disabled),
-//                 title: Text(
-//                     'Device is ${snapshot.data.toString().split('.')[1]}.'),
-//                 subtitle: Text('${device.id}'),
-//                 trailing: StreamBuilder<bool>(
-//                   stream: device.isDiscoveringServices,
-//                   initialData: false,
-//                   builder: (c, snapshot) => IndexedStack(
-//                     index: snapshot.data! ? 1 : 0,
-//                     children: <Widget>[
-//                       IconButton(
-//                         icon: Icon(Icons.refresh),
-//                         onPressed: () => device.discoverServices(),
-//                       ),
-//                       IconButton(
-//                         icon: SizedBox(
-//                           child: CircularProgressIndicator(
-//                             valueColor: AlwaysStoppedAnimation(Colors.grey),
-//                           ),
-//                           width: 18.0,
-//                           height: 18.0,
-//                         ),
-//                         onPressed: null,
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             StreamBuilder<int>(
-//               stream: device.mtu,
-//               initialData: 0,
-//               builder: (c, snapshot) => ListTile(
-//                 title: Text('MTU Size'),
-//                 subtitle: Text('${snapshot.data} bytes'),
-//                 trailing: IconButton(
-//                   icon: Icon(Icons.edit),
-//                   onPressed: () => device.requestMtu(223),
-//                 ),
-//               ),
-//             ),
-//             StreamBuilder<List<BluetoothService>>(
-//               stream: device.services,
-//               initialData: [],
-//               builder: (c, snapshot) {
-//                 return Container(
-//                   child: Center(
-//                     child: 
-                    
-//                      _authenticate(snapshot.data!),
-                    
-//                   ),
-//                 );
-//               },
-//             ),
-            
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

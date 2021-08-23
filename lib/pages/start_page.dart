@@ -11,23 +11,33 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_prueba/controllers/login_controller.dart';
 import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
+import 'package:flutter_prueba/controllers/datos_banda_controller.dart';
 import 'package:intl/intl.dart';
+
+
+import 'package:flutter_prueba/BLOCS/bloc_data.dart';
 
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class StartPage extends StatefulWidget {
+  final bloc;
+  final bloc_extra;
+  StartPage({this.bloc,this.bloc_extra});
+
   @override
   _StartPageState createState() => _StartPageState();
 }
 
-class _StartPageState extends State<StartPage> {
+class _StartPageState extends State<StartPage> with AutomaticKeepAliveClientMixin {
+  
   final controller = Get.put(LoginController());
-  num cambia = DatosBanda().bpm();
+  //num cambia = DatosBanda().bpm();
   //propiedad para hacer las emisiones
-  final data = new DatosBanda();
-  final HR = 90;
+  //final data = new DatosBanda();
+  //final HR = 90;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final Shader? linearGradient = LinearGradient(
       colors: <Color>[Colors.white, Colors.blue],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 200, 70));
@@ -47,101 +57,88 @@ class _StartPageState extends State<StartPage> {
             vertical: 120.0,
             ),
             */
-      child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              controller.signOut();
-              FSCRUD().LeerDatosPaciente("davidijajo@gmail.com");
-              //controller.RevisarDatos("6373738");
-              /*
-              FSCRUD().AddVariable(
-                  "davidijajo@gmail.com", "09082021", "Pasos", "1500");
-              FSCRUD().LeerVariable("davidijajo@gmail.com", "07082021", "HR");
-              FSCRUD()
-                  .AddVariable("davidijajo@gmail.com", "07082021", "Pasos", "10");
-              FSCRUD().AddVariable(
-                  "davidijajo@gmail.com", "07082021", "Distancia", "40");
-                  
-              DateTime now = DateTime.now();
-              String formattedDate = DateFormat('kk:mm').format(now);
-              FSCRUD().AddHR("davidijajo@gmail.com", "11082021", [
-                60,
-                61,
-                63,
-                62,
-                65
-              ], [
-                formattedDate,
-                formattedDate,
-                formattedDate,
-                formattedDate,
-                formattedDate
-              ]);
-              */
-            },
-            child: Icon(Icons.exit_to_app),
-            backgroundColor: Colors.red,
-          ),
-          body: Container(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      height:
-                          MediaQuery.of(context).copyWith().size.height * 0.2,
-                      color: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      alignment: Alignment.center,
-                      child: Text("BioSolutions",
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontFamily: 'OpenSans',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                            /*foreground: Paint()..shader = linearGradient*/
-                          ))),
-                  Container(
-                      color: Colors.white,
-                      //este container tendra las tarjetas de los datos a visualizar
-                      height:
-                          MediaQuery.of(context).copyWith().size.height * 0.8,
-                      width: MediaQuery.of(context).copyWith().size.width,
-                      //padding: const EdgeInsets.all(20),
-                      //height: 500,
-                      //width: 300,
-                      /*decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.black, Colors.blue, Colors.white],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),*/
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: ListView(
-                          children: [
-                            //aqui se pondran las cartas
-                            CardBPM(data: data),
-                            //la otra variable capturada Pasos
-                            Pasos(linearGradient2: linearGradient2),
-                            //otra variable Clorias
-                            Calorias(linearGradient2: linearGradient2),
-                          ],
-                          addAutomaticKeepAlives: false,
-                        ),
-                      ))
-                ]),
-          )),
+      child: SafeArea(
+        child: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                controller.signOut();
+              },
+              child: Icon(Icons.exit_to_app),
+              backgroundColor: Colors.red,
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                        height:
+                            MediaQuery.of(context).copyWith().size.height * 0.1,
+                        color: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        alignment: Alignment.center,
+                        child: Text("BioSolutions",
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontFamily: 'OpenSans',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              )
+                              )
+                              ),
+      
+                    Container(
+                        color: Colors.white,
+                        //este container tendra las tarjetas de los datos a visualizar
+                        height:MediaQuery.of(context).copyWith().size.height * 0.8,    
+                        width: MediaQuery.of(context).copyWith().size.width,
+                        //padding: const EdgeInsets.all(20),
+                        //height: 500,
+                        //width: 300,
+                        /*decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.black, Colors.blue, Colors.white],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter)),*/
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListView(
+                            children: [
+                              //aqui se pondran las cartas
+                              CardBPM(bloc: widget.bloc),
+                              //la otra variable capturada Pasos
+                              Pasos(bloc:widget.bloc_extra, linearGradient2: linearGradient2),
+                              //otra variable Clorias
+                              Calorias(bloc: widget.bloc_extra ,linearGradient2: linearGradient2),
+      
+                              Distancia(bloc:widget.bloc_extra)
+      
+      
+                            ],
+                            addAutomaticKeepAlives: false,
+                          ),
+                        ))
+                  ]),
+            )),
+      ),
       //),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class CardBPM extends StatelessWidget {
-  const CardBPM({
+  final bloc;
+  //final bloc_extra;
+
+  CardBPM({
     Key? key,
-    required this.data,
+    this.bloc,
   }) : super(key: key);
 
-  final DatosBanda data;
+  //final DatosBanda data;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +155,7 @@ class CardBPM extends StatelessWidget {
             children: [
               Container(
                 width: 200,
-                child: Text("Frecuencia cardiaca",
+                child: Text("BPM",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 30,
@@ -172,20 +169,41 @@ class CardBPM extends StatelessWidget {
                 color: Colors.blue[300],
                 size: 40,
               ),
-              Container(
-                width: 100,
-                child: Text(90.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue)),
+              StreamBuilder<int>(
+                stream: bloc.data,
+                initialData: 0,
+                builder: (c, snapshot) {
+                final value = snapshot.data!;
+                print("desde start page");
+                print(value);
+                return Container(
+                  width: 100,
+                  child: Text(value.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue))
+                      
+                      // return Text(0.toString(),
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //         fontSize: 60,
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.blue));
+                      
+                     
+                  
+                );
+                }
               ),
             ],
           ),
           Container(
-            child: graficaBPM(data: data),
-          ),
+                child: GraficaBPM(bloc: bloc),
+              )
+            
+          ,
         ],
       ),
     );
@@ -195,10 +213,11 @@ class CardBPM extends StatelessWidget {
 class Calorias extends StatelessWidget {
   const Calorias({
     Key? key,
-    required this.linearGradient2,
-  }) : super(key: key);
+    this.bloc,
+    this.linearGradient2}) : super(key: key);
 
-  final Shader? linearGradient2;
+  final linearGradient2;
+  final bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +251,7 @@ class Calorias extends StatelessWidget {
                         series: <CircularSeries>[
                           // Render pie chart
                           RadialBarSeries<_ChartDataCalorias, String>(
-                            dataSource: _chartDataCalorias,
+                            dataSource:_chartDataCalorias,
                             xValueMapper: (_ChartDataCalorias data, _) =>
                                 data.x1,
                             yValueMapper: (_ChartDataCalorias data, _) =>
@@ -269,14 +288,29 @@ class Calorias extends StatelessWidget {
                           ),
                           Icon(Icons.fireplace_rounded,
                               color: Colors.blue, size: 40),
-                          Text("0",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  //color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  foreground: Paint()
-                                    ..shader = linearGradient2)),
+                          StreamBuilder<List<int>>(
+                            stream: bloc.data,
+                            builder: (context, snapshot) {
+                              if(snapshot.hasData){
+                                final value = snapshot.data!;
+                                return Text((value[9]+256*value[10]+256*value[11]+256*value[12]).toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,)
+                                      );
+                                      }
+                              return Text("Cargando...",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    )
+                                    );
+                            }
+                          ),
                         ],
                       ),
                     ),
@@ -309,18 +343,19 @@ class _ChartDataCalorias {
   final Color color1;
 }
 
-class Pasos extends StatelessWidget {
-  const Pasos({
+class Distancia extends StatelessWidget {
+  const Distancia({
     Key? key,
-    required this.linearGradient2,
+    this.bloc,
+    this.linearGradient2,
   }) : super(key: key);
-
+  final bloc;
   final Shader? linearGradient2;
 
   @override
   Widget build(BuildContext context) {
-    final List<_ChartDataPasos> _chartDataPasos = [
-      _ChartDataPasos('Pasos', 500, Colors.blue),
+    final List<_ChartDataDistancia> _chartDataDistancia = [
+      _ChartDataDistancia('Distancia', 1000, Colors.blue),
     ];
     late TooltipBehavior _tooltipBehavior;
 
@@ -340,6 +375,7 @@ class Pasos extends StatelessWidget {
             children: [
               Container(
                 height: 150,
+
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -347,11 +383,11 @@ class Pasos extends StatelessWidget {
                         tooltipBehavior: _tooltipBehavior,
                         series: <CircularSeries>[
                           // Render pie chart
-                          RadialBarSeries<_ChartDataPasos, String>(
-                            dataSource: _chartDataPasos,
-                            xValueMapper: (_ChartDataPasos data, _) => data.x,
-                            yValueMapper: (_ChartDataPasos data, _) => data.y,
-                            pointColorMapper: (_ChartDataPasos data, _) =>
+                          RadialBarSeries<_ChartDataDistancia, String>(
+                            dataSource: _chartDataDistancia,
+                            xValueMapper: (_ChartDataDistancia data, _) => data.x,
+                            yValueMapper: (_ChartDataDistancia data, _) => data.y,
+                            pointColorMapper: (_ChartDataDistancia data, _) =>
                                 data.color,
                             maximumValue: 1200,
                             enableTooltip: true,
@@ -368,7 +404,7 @@ class Pasos extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Pasos",
+                          Text("Distancia",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
@@ -377,13 +413,30 @@ class Pasos extends StatelessWidget {
                               )),
                           Icon(Icons.directions_walk,
                               color: Colors.blue, size: 40),
-                          Text("0",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                                //color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              )),
+                          StreamBuilder<List<int>>(
+                            stream: bloc.data,
+                            
+                            builder: (context, snapshot) {
+                              if(snapshot.hasData){
+                                final value = snapshot.data!;
+                                return Text((value[5]+256*value[6]+256*value[7]+256*value[8]).toString()+" m",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,)
+                                      );
+                                      }
+                              return Text("Cargando...",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    )
+                                    );
+                            }
+                          ),
                         ],
                       ),
                     ),
@@ -409,20 +462,20 @@ class Pasos extends StatelessWidget {
   }
 }
 
-class _ChartDataPasos {
-  _ChartDataPasos(this.x, this.y, this.color);
+class _ChartDataDistancia {
+  _ChartDataDistancia(this.x, this.y, this.color);
   final String x;
   final int y;
   final Color color;
 }
 
-class graficaBPM extends StatelessWidget {
-  const graficaBPM({
+class GraficaBPM extends StatelessWidget {
+  const GraficaBPM({
     Key? key,
-    required this.data,
+    this.bloc,
   }) : super(key: key);
 
-  final DatosBanda data;
+  final bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -433,8 +486,7 @@ class graficaBPM extends StatelessWidget {
     ChartSeriesController? _chartSeriesController;
     int contador = 0;
     return StreamBuilder(
-      stream: data
-          .datoBanda, //voy a la clase y la función dentro que entrega el valor del stream
+      stream: bloc.data, //voy a la clase y la función dentro que entrega el valor del stream
       initialData: 0,
       builder: (_, AsyncSnapshot<dynamic> snapshot) {
         void _updateDataSource() {
@@ -505,4 +557,132 @@ class _ChartData {
   _ChartData(this.hora, this.bpm);
   final String hora;
   final double bpm;
+}
+
+
+
+class Pasos extends StatelessWidget {
+  const Pasos({
+    Key? key,
+    this.bloc,
+    this.linearGradient2,
+  }) : super(key: key);
+  final bloc;
+  final Shader? linearGradient2;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<_ChartDataPasos> _chartDataPasos = [
+      _ChartDataPasos('Pasos', 500, Colors.blue),
+    ];
+    late TooltipBehavior _tooltipBehavior;
+
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    return Card(
+      elevation: 10,
+      shadowColor: Colors.blue,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 150,
+
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SfCircularChart(
+                        tooltipBehavior: _tooltipBehavior,
+                        series: <CircularSeries>[
+                          // Render pie chart
+                          RadialBarSeries<_ChartDataPasos, String>(
+                            dataSource: _chartDataPasos,
+                            xValueMapper: (_ChartDataPasos data, _) => data.x,
+                            yValueMapper: (_ChartDataPasos data, _) => data.y,
+                            pointColorMapper: (_ChartDataPasos data, _) =>
+                                data.color,
+                            maximumValue: 1200,
+                            enableTooltip: true,
+                            animationDuration: 10,
+                            innerRadius: "60",
+                            cornerStyle: CornerStyle.bothFlat,
+                            trackBorderWidth: 1,
+                            trackBorderColor: Colors.transparent,
+                            radius: "100%",
+                          ),
+                        ]),
+                    Container(
+                      //width: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Pasos",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                //color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Icon(Icons.directions_walk,
+                              color: Colors.blue, size: 40),
+                          StreamBuilder<List<int>>(
+                            stream: bloc.data,
+                            
+                            builder: (context, snapshot) {
+                              if(snapshot.hasData){
+                                final value = snapshot.data!;
+                                return Text((value[1]+256*value[2]+256*value[3]+256*value[4]).toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,)
+                                      );
+                                      }
+                              return Text("Cargando...",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      //color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    )
+                                    );
+                            }
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              /*
+              
+              Container(
+                width: 10,
+                child: Text(90.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green)),
+              ),*/
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChartDataPasos {
+  _ChartDataPasos(this.x, this.y, this.color);
+  final String x;
+  final int y;
+  final Color color;
 }

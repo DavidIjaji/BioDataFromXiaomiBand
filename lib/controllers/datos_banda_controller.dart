@@ -12,6 +12,7 @@ class DatosBanda /*extends Getx*/ {
     int min = 60;
     int max = 120;
 
+
     num r = min + ranBPM.nextInt(max - min);
     //print(r);
     return r;

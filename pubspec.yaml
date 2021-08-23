@@ -43,6 +43,7 @@ dependencies:
   encrypt: ^5.0.0
   hex: ^0.2.0
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
